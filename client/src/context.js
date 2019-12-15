@@ -26,6 +26,7 @@ class MyProvider extends Component {
     },
     user: {},
     file: {},
+    product:{},
     uploaded: false
   };
   componentDidMount() {
@@ -61,9 +62,7 @@ class MyProvider extends Component {
         this.setState({ loggedUser: true, user: data.user })
         cb()
       })
-      .catch(err => {
-        Swal.fire(`Quien sabe que paso`, '☠️', 'error')
-      });
+
   };
 
   handleLogout = async cb => {
@@ -93,10 +92,11 @@ class MyProvider extends Component {
 
   handleProductSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state.productForm);
     const { data } = await MY_SERVICE.uploadProduct(this.state.productForm);
+    console.log(data);
+    this.setState({ product: data.product })
     // this.setState({ user: data.user })
-    // Swal.fire(`Welcome ${data.user.name}`, "User created", "success");
+    Swal.fire(`Product ${data.product.productName}`, "User created", "success");
   }
 
   render() {

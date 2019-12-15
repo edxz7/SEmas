@@ -16,7 +16,9 @@ exports.createProduct = async (req, res, next) => {
         price,
         quantity,
         author: _id,
-    });
+    })
+    .then((product) => { res.status(201).json({ product })
+    .catch((err) => res.status(500).json({ err })); });
 }
 
 // exports.postGet = async (req, res) => {

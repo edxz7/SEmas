@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
-import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
-import Profile from "./components/Profile";
-import Level1 from "./components/Level1";
-import NotFound from "./components/404/NotFound.js";
+import Home from "./pages/homepage/Home";
+import SignUp from "./pages/signup/SignUp";
+import LogIn from "./pages/login/LogIn";
+import DashboardMetrics from "./pages/dashboardMetrics/DashboardMetrics"
+import NotFound from "./pages/404/NotFound.js";
 
 const Router = () => (
   <BrowserRouter>
@@ -13,8 +12,7 @@ const Router = () => (
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={LogIn} />
       <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/level1" component={Level1} />
+      <Route exact path="/profile" component={DashboardMetrics} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

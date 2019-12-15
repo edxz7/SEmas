@@ -3,6 +3,9 @@ const User = require('../models/User');
 // Method	Endpoint	    Parameters                      	Return Value
 // POST  	/auth/signup	username, password, campus, course	User created
 exports.signup = async (req, res) => {
+    if(email ==="" || password==="") {
+        res.json({ err:"El email y password son requeridos" });
+    } 
     const { username, userLastName, email, password } = req.body;
     await User.register( { username, userLastName, email }, password)
         .then((user) => { res.status(201).json({ user }); })
