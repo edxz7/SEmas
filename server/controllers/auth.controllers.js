@@ -1,12 +1,12 @@
 const User = require('../models/User');
 
-// Method	Endpoint	    Parameters                      	Return Value
-// POST  	/auth/signup	username, password, campus, course	User created
+// Method	Endpoint	    Parameters              	              Return Value
+// POST  	/auth/signup	username, userLastName, email, password   User created
 exports.signup = async (req, res) => {
+    const { username, userLastName, email, password } = req.body;
     if(email ==="" || password==="") {
         res.json({ err:"El email y password son requeridos" });
     } 
-    const { username, userLastName, email, password } = req.body;
     await User.register( { username, userLastName, email }, password)
         .then((user) => { res.status(201).json({ user }); })
         .catch((err) => res.status(500).json({ err }));
@@ -34,11 +34,11 @@ exports.loggedin = (req, res, next) => {
         .catch((err) => res.status(500).json({ err }));
 }
 
-// Method	Endpoint	    Parameters      	        Return Value
-// POST	    /auth/edit	    username, campus, course	User updated
+// Method	Endpoint	    Parameters      	               Return Value
+// POST	    /auth/edit	    username, userLastName, email	   User updated
 exports.edit = async (req, res) => {
-    const { username, campus, course } = req.body
-    await User.findByIdAndUpdate(req.user._id, { username, campus, course })
+    const { username, userLastName, email } = req.body
+    await User.findByIdAndUpdate(req.user._id, { username, userLastName, email })
         .then(user => res.status(200).json({ user }))
         .catch(err => console.log(err));
 }

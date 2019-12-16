@@ -6,6 +6,9 @@ const commerceSchema = new Schema(
         business:String,
         businessType:String,
         numEmployees:String
+    }, {
+        timestamps: true,
+        versionKey: false
     }
 )
 

@@ -6,6 +6,9 @@ const userSchema = new Schema(
         userLastName:String,
         email:String,
         password:String
+    }, {
+        timestamps: true,
+        versionKey: false
     }
 )
 userSchema.plugin(PLM, {

@@ -55,9 +55,11 @@ app.use(logger('dev'));
 const index = require('./routes/index');
 const auth = require('./routes/auth.routes');
 const product = require('./routes/product.routes');
+const transaction = require('./routes/transaction.routes');
 app.use('/', index);
 app.use('/', auth);
 app.use('/', product);
+app.use('/', transaction)
 
 // Uncomment this line for production
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
