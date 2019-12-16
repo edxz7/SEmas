@@ -15,9 +15,9 @@ export default function SignupContainer(props) {
           }}
         >
           <div div className="duo-div">
-            <h1>Sign Up</h1>
+            <h1>Registrate</h1>
             <div className="form-container">
-              <div>Username</div>
+              <div>Nombre</div>
               <input
                 type="text"
                 name="username"
@@ -27,7 +27,7 @@ export default function SignupContainer(props) {
             </div>
             
             <div className="form-container">
-              <div>Last Name</div>
+              <div>Apellido</div>
               <input
                 type="text"
                 name="userLastName"
@@ -55,7 +55,7 @@ export default function SignupContainer(props) {
                 value={context.formSignup.password}
               />
             </div>
-            <button type="submit">Create the Account</button>
+            <button type="submit">Crea una cuenta</button>
           </div>
           <div div className="duo-div">
 

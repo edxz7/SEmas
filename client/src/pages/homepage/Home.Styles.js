@@ -1,7 +1,22 @@
 import styled from "styled-components";
 
-const HomeStyles = styled.div`
+
+export const MyBlocks = styled.div` 
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  img{ 
+    width: 40%;
+    heigth: auto;
+    margin: 20px;
+  }
+` 
+
+
+ export const HomeStyles = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+  padding-top: 10%;
   header h1{
     font-family: Montserrat;
     color:#0ad5a0;
@@ -10,10 +25,16 @@ const HomeStyles = styled.div`
   h2 {
     font-family: Montserrat;
     color:#0ad5a0;
-    font-size:2em;
+    font-size:1.3em;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 10px 0;
+
   }
   p {
     color:white;
+    font-size:0.8em;
+
   }
   .main-container{
     display:flex;
@@ -34,34 +55,19 @@ const HomeStyles = styled.div`
         flex-direction: column;
       }
   }
-  .btn-container button{
-    margin: 10px;
-    font-size: 2em;
-    padding:10px 50px;
-    background:#e40b81;
-    color:white;
-    display:flex;
-    justify-content:center;
-    
-  }
   .subcontainer{
     font-family: Montserrat;
     font-size:1.4em;
-    width:400px;
+    width:430px;
     padding:10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 
-    img {
-      width:200px;
-      padding:20px;
-    }
+  
   }
-
   .subcontainer:hover {
        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
   }
 `;
 
-export default HomeStyles;

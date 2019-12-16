@@ -6,6 +6,7 @@ export const MyContext = createContext();
 
 class MyProvider extends Component {
   state = {
+    on: false,
     loggedUser: false,
     formSignup: {
       username: "",
@@ -27,7 +28,9 @@ class MyProvider extends Component {
     user: {},
     file: {},
     product:{},
-    uploaded: false
+    uploaded: false,
+    apiKey: '',
+    spreadsheetId: ''
   };
   componentDidMount() {
     if (document.cookie) {
@@ -38,6 +41,11 @@ class MyProvider extends Component {
         })
         .catch(err => console.log(err));
     }
+  }
+  toggle = () => {
+    this.setState({
+      on: !this.state.on
+    })
   }
 
   handleInput = (e, obj) => {
@@ -99,6 +107,20 @@ class MyProvider extends Component {
     Swal.fire(`Product ${data.product.productName}`, "User created", "success");
   }
 
+
+  handleChangeSpreadSheet = event => {
+    const { value, name } = event.target;
+
+    this.setState({ [name]: value });
+  };
+
+  handleSubmitSpreadSheet = async event => {
+    event.preventDefault();
+    const { apiKey, spreadsheetId } = this.state;
+    this.setState({ apiKey: apiKey, spreadsheetId:spreadsheetId });
+    console.log(apiKey, spreadsheetId)
+  };
+
   render() {
     return (
       <MyContext.Provider
@@ -112,6 +134,9 @@ class MyProvider extends Component {
           handleLogout: this.handleLogout,
           handleFile: this.handleFile,
           handleUpload: this.handleUpload,
+          toggle:this.toggle,
+          handleChangeSpreadSheet: this.handleChangeSpreadSheet,
+          handleSubmitSpreadSheet: this.handleSubmitSpreadSheet,
           // user: this.state.user,
           handleProductSubmit:this.handleProductSubmit,
           state: this.state

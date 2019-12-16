@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Collapse from "@material-ui/core/Collapse";
-// import { SidebarStyle } from './homepage.styles';
+import {DashLink} from "./Sidebar.Styles";
 
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   const [collapsed, setCollapsed] = React.useState(true);
@@ -57,6 +57,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
         {expandIcon}
       </ListItem>
       <Collapse in={!collapsed} timeout="auto" unmountOnExit>
+      
         {Array.isArray(items) ? (
           <List disablePadding dense>
             {items.map((subItem, index) => (
@@ -64,11 +65,13 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                 {subItem === "divider" ? (
                   <Divider style={{ margin: "6px 0" }} />
                 ) : (
-                  <SidebarItem
-                    depth={depth + 1}
-                    depthStep={depthStep}
-                    item={subItem}
-                  />
+                  <DashLink to={`/${subItem.route}`}>
+                    <SidebarItem
+                      depth={depth + 1}
+                      depthStep={depthStep}
+                      item={subItem}
+                    />
+                  </DashLink>
                 )}
               </React.Fragment>
             ))}
@@ -78,10 +81,10 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
     </>
   );
 }
-
+// style={{display: `${toggle? "none" : "block"}  ` }}
 function Sidebar({ items, depthStep, depth, expanded }) {
   return (
-    <div className="sidebar">
+    <div className="sidebar" >
       <List disablePadding dense>
         {items.map((sidebarItem, index) => (
           <React.Fragment key={`${sidebarItem.name}${index}`}>
@@ -94,6 +97,7 @@ function Sidebar({ items, depthStep, depth, expanded }) {
                 expanded={expanded}
                 item={sidebarItem}
               />
+              
             )}
           </React.Fragment>
         ))}

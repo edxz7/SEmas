@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { MyContext } from "../../context";
 import { Link } from "react-router-dom";
-import LogInStyles from "./Login.Styles";
+import {LogInStyles, MyInput} from "./Login.Styles";
+import {SecondaryButton} from "../../styledComponents/GenericStyles"
 // import dataInsight from "../../assets/images/data_insight.jpg";
 
 
@@ -24,10 +25,10 @@ export default class LogIn extends Component {
             }}
           >
             <div className="duo-div">
-              <h1>Log In</h1>
+              <h1>Ingresa</h1>
               <div className="form-container">
                 <tag>Email</tag>
-                <input
+                <MyInput
                   type="email"
                   name="email"
                   onChange={e => context.handleInput(e, "loginForm")}
@@ -37,7 +38,7 @@ export default class LogIn extends Component {
               </div>
               <div className="form-container">
                 <tag>Password</tag>
-                <input
+                <MyInput
                   name="password"
                   type="password"
                   onChange={e => context.handleInput(e, "loginForm")}
@@ -46,10 +47,10 @@ export default class LogIn extends Component {
                 />
               </div>
               <p>
-                If you don't have an account yet, you can create your account{" "}
-                <Link to="/signup">here</Link>
+                Si aun no tienes una cuenta, crea una {" "}
+                <Link to="/signup">aqui</Link>
               </p>
-              <button type="submit">Log In</button>
+              <SecondaryButton type="submit">Log In</SecondaryButton>
             </div>
             <div className="duo-div">
               {/* <img src={dataInsight} alt="" /> */}

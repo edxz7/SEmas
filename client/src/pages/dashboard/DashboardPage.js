@@ -1,0 +1,40 @@
+import React, { Component } from "react";
+import Dashboard from "../../components/Dashboard/Dashboard";
+import Profile from "../../components/Profile/ProfilePage";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import items from "../../components/Sidebar/Sidebar.Router"
+import Navbar from "../../components/Navbar/Navbar";
+import MenuIcon from '@material-ui/icons/Menu';
+class DashboardMetrics extends Component {
+  state = {
+    on: true
+  }
+  toggle = (e) => {
+    e.preventDefault();
+    this.setState({ on: !this.state.on });
+  }
+
+  render() {
+    return (
+      <div  id="mainContainer" style={{display:'flex', alignItems:'top'}}>
+        <div id="sidebar">
+          {this.state.on && <Sidebar items={items} />}
+        </div>
+        <div>
+         <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
+                  {/* static navbar - top */}
+                  <Navbar
+  
+          />
+          {(this.props.match.url === "/profile" ?  <Profile />
+          : this.props.match.url === "/metricas" ? <Dashboard /> 
+          : <Dashboard />  )}
+          
+        </div>
+      </div>
+    );
+  }
+}
+
+
+export default DashboardMetrics;
