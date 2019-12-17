@@ -79,8 +79,8 @@ body {
 
 
 #dashboard {
-  width: 90vw;
-  padding-top: 125px;
+  width: 85vw;
+  padding-top: 70px;
 }
 
 .container-fluid {
@@ -251,7 +251,7 @@ body {
 /* Sidebar */
 
 .sidebar {
-  padding-top: 130px;
+  padding-top: 100px;
   /* max-width: 240px; */
   width: 200px;
   height: 100%;
@@ -297,7 +297,7 @@ body {
 
 
 #menu-toggle{
-  padding-top: 125px;
+  padding-top: 100px;
   color: #e40b81;
   transition:all .3s;
   font-size:2em;

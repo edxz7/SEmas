@@ -25,10 +25,9 @@ class DashboardMetrics extends Component {
          <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
                   {/* static navbar - top */}
                   <Navbar/>
-          {(this.props.match.url === "/profile" ?  <Profile />
-          : this.props.match.url === "/metricas" ? <Dashboard /> 
-          : this.props.match.url === "/ventas" ? <Sells /> : <Dashboard />  )}
-          
+                  {(this.props.match.url === "/profile" ?  <Profile />
+                  : this.props.match.url === "/metricas" ? <Dashboard /> 
+                  : this.props.match.url === "/ventas" ? <Sells/> : <Dashboard />  )}
         </div>
       </div>
     );

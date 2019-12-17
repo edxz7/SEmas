@@ -1,5 +1,6 @@
 import React from "react";
 import SignUpStyle from "./SignUp.Styles";
+import FormInput from "../../components/FormInput/FormInput"
 import { MyContext } from "../../context";
 
 
@@ -25,7 +26,7 @@ export default function SignupContainer(props) {
                 value={context.formSignup.username}
               />
             </div>
-            
+
             <div className="form-container">
               <div>Apellido</div>
               <input
@@ -58,7 +59,41 @@ export default function SignupContainer(props) {
             <button type="submit">Crea una cuenta</button>
           </div>
           <div div className="duo-div">
-
+            <form onSubmit={context.handleSubmitSpreadSheet}>
+              <FormInput
+                name='name'
+                type='text'
+                handleChange={e => context.handleInput(e, "formSignup")}
+                value={context.state.apiKey}
+                label='Nombre del comercio'
+                required
+              />
+              <FormInput
+                name='category'
+                type='text'
+                handleChange={e => context.handleInput(e, "formSignup")}
+                value={context.state.spreadsheetId}
+                label='Giro del negocio'
+                required
+              />
+              <FormInput
+                name='numEmployees'
+                type='number'
+                handleChange={e => context.handleInput(e, "formSignup")}
+                value={context.state.spreadsheetId}
+                label='Numero de empleados'
+                required
+              />
+              <FormInput
+                name='numEmployees'
+                type='adress'
+                handleChange={e => context.handleInput(e, "formSignup")}
+                value={context.state.spreadsheetId}
+                label='Dirección'
+                required
+              />
+              <button type="submit">Crea una cuenta</button>
+            </form>
           </div>
         </SignUpStyle>
       )}

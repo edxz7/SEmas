@@ -9,9 +9,7 @@ exports.createProduct = async (req, res, next) => {
 
 exports.getProduct =  async (req, res) => {
   const products = await Product.find();
-  console.log(products)
-  res.status(200).json({ products })
-  .catch(err => res.status(500).json({ err }));
+  res.status(200).json({ products });
 }
 
 // exports.deletePost = (req, res) => {

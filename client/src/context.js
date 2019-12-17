@@ -31,7 +31,8 @@ class MyProvider extends Component {
     uploaded: false,
     apiKey: '',
     spreadsheetId: '',
-    inventory:[]
+    inventory:[],
+    fullInventory:[]
   };
   componentDidMount() {
     if (document.cookie) {
@@ -126,9 +127,8 @@ class MyProvider extends Component {
 
   handleGetProducts = async() => {
     // e.preventDefault();
-    const products = await MY_SERVICE.getProducts();
-    console.log(products);
-    return products;
+    // this.setState({ fullInventory: data.product })
+    return await MY_SERVICE.getProducts();
   }
 
   render() {

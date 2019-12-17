@@ -30,7 +30,7 @@ const SignUpStyle = styled.form`
 
   }
   .duo-div:last-of-type {
-    padding-left: 30%;
+    padding-left: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

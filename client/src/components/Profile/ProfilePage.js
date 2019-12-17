@@ -85,7 +85,6 @@ class Profile extends Component {
                   />
                   <button onClick={(e) => {
                     this.getData(e, context.state.apiKey, context.state.spreadsheetId, context.state.user);
-                    // context.handleProductSubmit(e);                   
                     }} type="submit">Actualizar</button>
                   { this.state.submited ?  <div>Tu inventario  a sido registrado, ahora puedes registrar tus ventas en la sección registrar -> ventas</div> : <div></div> }
                 </form>
