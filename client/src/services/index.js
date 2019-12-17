@@ -29,8 +29,11 @@ const MY_SERVICE = {
   upload: async (image) => {
     return await service.post("/upload", image);
   },
-  uploadProduct: async (product) => {
-    return await service.post("/product/create", product);
+  uploadProduct: async (products) => {
+    return await service.post("/product/create", {products});
+  },
+  getProducts: async () => {
+    return await service.get("/product/get");
   }
 };
 

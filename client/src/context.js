@@ -30,7 +30,8 @@ class MyProvider extends Component {
     product:{},
     uploaded: false,
     apiKey: '',
-    spreadsheetId: ''
+    spreadsheetId: '',
+    inventory:[]
   };
   componentDidMount() {
     if (document.cookie) {
@@ -98,16 +99,6 @@ class MyProvider extends Component {
 
   // ---------------
 
-  handleProductSubmit = async (e) => {
-    e.preventDefault();
-    const { data } = await MY_SERVICE.uploadProduct(this.state.productForm);
-    console.log(data);
-    this.setState({ product: data.product })
-    // this.setState({ user: data.user })
-    Swal.fire(`Product ${data.product.productName}`, "User created", "success");
-  }
-
-
   handleChangeSpreadSheet = event => {
     const { value, name } = event.target;
 
@@ -118,8 +109,27 @@ class MyProvider extends Component {
     event.preventDefault();
     const { apiKey, spreadsheetId } = this.state;
     this.setState({ apiKey: apiKey, spreadsheetId:spreadsheetId });
-    console.log(apiKey, spreadsheetId)
+    console.log("INFO: ",apiKey, spreadsheetId)
   };
+
+  handleInventory = (row, e) => {
+    this.setState({inventory:row})
+    this.handleProductSubmit(e)
+  }
+
+  handleProductSubmit = async (e) => {
+    e.preventDefault();
+    const { data } = await MY_SERVICE.uploadProduct(this.state.inventory);
+    this.setState({ product: data.product })
+    Swal.fire(`Inventory created`, "with success", "success");
+  }
+
+  handleGetProducts = async() => {
+    // e.preventDefault();
+    const products = await MY_SERVICE.getProducts();
+    console.log(products);
+    return products;
+  }
 
   render() {
     return (
@@ -137,8 +147,10 @@ class MyProvider extends Component {
           toggle:this.toggle,
           handleChangeSpreadSheet: this.handleChangeSpreadSheet,
           handleSubmitSpreadSheet: this.handleSubmitSpreadSheet,
-          // user: this.state.user,
+          handleInventory:this.handleInventory,
+          handleGetProducts:this.handleGetProducts,
           handleProductSubmit:this.handleProductSubmit,
+          handleInventorySubmit:this.handleInventorySubmit,
           state: this.state
         }}
       >

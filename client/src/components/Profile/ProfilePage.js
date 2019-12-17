@@ -3,6 +3,7 @@ import { ProfileStyle } from "./Profile.Styles";
 import { MyContext } from "../../context";
 import FormInput from "../FormInput/FormInput"
 
+
 class Profile extends Component {
   state = {
     submited: false,  
@@ -11,6 +12,30 @@ class Profile extends Component {
     this.setState({ submited: !this.state.submited });
   };
 
+
+  getData = (e, apiKey, spreadsheetId, user) => {
+    this.setState({ submited: !this.state.submited })
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${
+      spreadsheetId
+      }/values:batchGet?ranges=Inventario&majorDimension=ROWS&key=${apiKey}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let batchRowValues = data.valueRanges[0].values;
+      const rows = [];
+      for (let i = 1; i < batchRowValues.length; i++) {
+        let rowObject = {
+          author:user._id
+        };
+        for (let j = 0; j < batchRowValues[i].length; j++) {
+          rowObject[batchRowValues[0][j]] = batchRowValues[i][j];
+        }
+        rows.push(rowObject);
+      }
+      this.context.handleInventory(rows, e);
+    })
+  } 
+
   render(){
     return (
       <MyContext.Consumer>
@@ -18,6 +43,7 @@ class Profile extends Component {
           <ProfileStyle id="dashboard" class="profile-container" style={{ color: "white", display: "flex" }}>
             <div id="profile-info">
               <div id="user-info">
+              <h3>Información del usuario</h3>
                 <h5>Nombre</h5>
                 <p>{context.state.user.username}</p>
                 <p>{context.state.user.userLastName}</p>
@@ -26,16 +52,17 @@ class Profile extends Component {
               </div>
               <br />
               <div id="commerce-info">
+              <h3>Información del comercio</h3>
                 <h5>Nombre del comercio</h5>
                 <h5>Dirección:</h5>
               </div>
             </div>
             <div id="inventory-form">
   
-                <h4>Actualiza tu inventario</h4>
+                <h4>Para registrar tu actividad y crear "insights" manten actualizado tu inventario</h4>
   
-                <p>Usa google sheets para mantener tu inventario organizado</p>
-                <p>Usa el siguiente enlace para avilitar permmisos
+                <p>Puedes usar google sheets para mantener tu inventario organizado,</p>
+                <p>Usa el siguiente enlace para avilitar los permisos necesarios
                    {" "}
                   <a href="https://support.google.com/a/answer/60757?hl=es-419" target="_blank">aqui</a>
                 </p>
@@ -56,10 +83,13 @@ class Profile extends Component {
                     label='Id de la hoja de calculo'
                     required
                   />
-                  <button onClick={this.onPress} type="submit">Actualizar</button>
+                  <button onClick={(e) => {
+                    this.getData(e, context.state.apiKey, context.state.spreadsheetId, context.state.user);
+                    // context.handleProductSubmit(e);                   
+                    }} type="submit">Actualizar</button>
                   { this.state.submited ?  <div>Tu inventario  a sido registrado, ahora puedes registrar tus ventas en la sección registrar -> ventas</div> : <div></div> }
                 </form>
-                <h4> o sube un hoja de calculo con tu inventario</h4>
+                <h4 id="option"> o sube tu inventario en formato .csv</h4>
             </div>
           </ProfileStyle>
         )}
@@ -67,5 +97,7 @@ class Profile extends Component {
     );
   }
 }
+
+Profile.contextType=MyContext;
 
 export default Profile;

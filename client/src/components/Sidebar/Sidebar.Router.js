@@ -4,7 +4,11 @@ import CreateIcon from '@material-ui/icons/Create';
 
 const items = [
     "divider",
-    { name: "Perfil", label: "Perfil", route:'perfil', Icon: ProfileIcon },
+    { label: "Perfil", Icon: ProfileIcon,
+    items: [
+      { name: "Perfil", label: "Perfil", route:'profile' },
+    ]
+   },
     {
       name: "dashboard",
       label: "Dashboaard",

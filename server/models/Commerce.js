@@ -3,9 +3,13 @@ const commerceSchema = new Schema(
     {
         name:String,
         adress:String,
-        business:String,
+        category:String,
         businessType:String,
-        numEmployees:String
+        numEmployees:String,
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     }, {
         timestamps: true,
         versionKey: false

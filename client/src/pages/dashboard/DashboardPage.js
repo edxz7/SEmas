@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import Profile from "../../components/Profile/ProfilePage";
+import Sells from "../../components/Sells/SellsPage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import items from "../../components/Sidebar/Sidebar.Router"
 import Navbar from "../../components/Navbar/Navbar";
@@ -23,12 +24,10 @@ class DashboardMetrics extends Component {
         <div>
          <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
                   {/* static navbar - top */}
-                  <Navbar
-  
-          />
+                  <Navbar/>
           {(this.props.match.url === "/profile" ?  <Profile />
           : this.props.match.url === "/metricas" ? <Dashboard /> 
-          : <Dashboard />  )}
+          : this.props.match.url === "/ventas" ? <Sells /> : <Dashboard />  )}
           
         </div>
       </div>

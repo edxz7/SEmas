@@ -5,6 +5,10 @@ const transactionSchema = new Schema(
         item: {
             type: Schema.Types.ObjectId,
             ref: "Product"
+        },	
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }
     }, {
         timestamps: true,

@@ -10,12 +10,14 @@ function Navbar(props) {
             <MyContext.Consumer>
                 {context => (
                     <Nav className="mynav navbar navbar-expand-lg fixed-top is-white is-dark-text">
-                        <Container className="navbar-brand h1 mb-0 text-large font-medium">
-                            Crece +
-                         </Container>
+                        <OptionLink  to="/">
+                            <Container className="navbar-brand h1 mb-0 text-large font-medium">
+                                Crece +
+                            </Container>
+                        </OptionLink>
                         <Container className="navbar-nav ml-auto">
                             <OptionLink as='div'>
-                                <span className="pr-2">Hi, {context.state.user.username} {context.state.user.userLastName} {context.state.user.userLastName}</span>
+                                <span className="pr-2">Hola, {context.state.user.username} {context.state.user.userLastName} {context.state.user.userLastName}</span>
                                 <span className="img-container">
                                     {/* <img src={UserImg} className="rounded-circle" alt="user" /> */}
                                 </span>
@@ -24,21 +26,25 @@ function Navbar(props) {
 
                             </Container>
                             <Container className="user-detail-section">
-                                <OptionLink as='div' onClick={e => {
-                                    e.preventDefault()
-                                    context.handleLogout(() => {
-                                        props.history.push("/");
-                                    });
-                                }}>
-                                    SIGN OUT
-                        </OptionLink>
+                                {context.state.user==={} ? (
+                                    <OptionLink as='div' onClick={e => {
+                                        e.preventDefault()
+                                        context.handleLogout(() => {
+                                            props.history.push("/signup");
+                                        });
+                                    }}>
+                                        SIGN OUT
+                                </OptionLink>
+                                ) : (
+                                        <OptionLink as='div' to='/login'>Log In</OptionLink>
+                                    )}
                             </Container>
                         </Container>
                     </Nav>
                 )}
             </MyContext.Consumer>
             {/* static navbar - bottom */}
-            <Nav className="navbar fixed-top nav-secondary is-dark is-light-text">
+            {/* <Nav className="navbar fixed-top nav-secondary is-dark is-light-text">
                 <Container className="text-medium">Menu</Container>
                 <Container className="navbar-nav ml-auto">
                     <Dropdown
@@ -49,7 +55,7 @@ function Navbar(props) {
                         placeholder="Select an option"
                     />
                 </Container>
-            </Nav>
+            </Nav> */}
         </>
     );
 }

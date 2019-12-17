@@ -1,73 +1,72 @@
-id,category,Item
-0,beverage,Bread Pudding
-1,beverage,Tshirt
-2,beverage,Panatone
-3,beverage,Gingerbread syrup
-4,beverage,Toast
-5,beverage,Lemon and coconut
-6,beverage,Kids biscuit
-7,beverage,Dulce de Leche
-8,beverage,Alfajores
-9,beverage,Victorian Sponge
-10,beverage,Ella's Kitchen Pouches
-11,beverage,Raw bars
-12,beverage,Jam
-13,beverage,Pastry
-14,bread,Bread
-15,bread,Bare Popcorn
-16,bread,Muesli
-17,bread,Adjustment
-18,bread,Hot chocolate
-19,bread,Granola
-20,bread,Afternoon with the baker
-21,bread,Chicken Stew
-22,bread,Siblings
-23,bread,My-5 Fruit Shoot
-24,bread,Extra Salami or Feta
-25,bread,Chicken sand
-26,bread,Gift voucher
-27,bread,Drinking chocolate spoons 
-28,bread,Nomad bag
-29,bread,Tea
-30,bread,Duck egg
-31,bread,Soup
-32,bread,Postcard
-33,bread,Scandinavian
-34,bread,Cake
-35,bread,Valentine's card
-36,bread,Pick and Mix Bowls
-37,bread,Caramel bites
-38,breakfast_pastry,Brioche and salami
-39,breakfast_pastry,Crisps
-40,breakfast_pastry,Raspberry shortbread sandwich
-41,breakfast_pastry,Bakewell
-42,breakfast_pastry,Mineral water
-43,breakfast_pastry,Coffee
-44,breakfast_pastry,Mighty Protein
-45,breakfast_pastry,NONE
-46,breakfast_pastry,Coke
-47,breakfast_pastry,Tartine
-48,breakfast_pastry,Medialuna
-49,breakfast_pastry,Smoothies
-50,breakfast_pastry,Frittata
-51,breakfast_pastry,Cherry me Dried fruit
-52,breakfast_pastry,Truffles
-53,breakfast_pastry,Chimichurri Oil
-54,breakfast_pastry,Juice
-55,breakfast_pastry,Fudge
-56,breakfast_pastry,Brownie
-57,condiments,Salad
-58,condiments,Sandwich
-59,condiments,Cookies
-60,condiments,Chocolates
-61,dessert,Muffin
-62,dessert,Eggs
-63,dessert,Baguette
-64,other,Coffee granules 
-65,other,Bacon
-66,other,Spread
-67,other,Focaccia
-68,condiments,Honey
-69,breakfast_pastry,Scone
-70,dessert,Crepes
-71,other,Christmas common
+id,category,item,price
+0,beverage,Hot chocolate,14
+1,beverage,Coke,13
+2,beverage,Smoothies,30
+3,beverage,Coffee,10
+4,beverage,Juice,18
+5,beverage,Mineral water,15
+6,beverage,Tea,11
+7,bread,Bread,40
+8,bread,Toast,20
+9,bread,Focaccia,10
+10,bread,Baguette,30
+11,bread,Scandinavian,20
+12,breakfast,Granola,70
+13,breakfast,Brioche and salami,170
+14,breakfast,Frittata,110
+15,breakfast,Muesli,70
+16,breakfast,Duck egg,110
+17,breakfast,Eggs,90
+18,breakfast_pastry,Scone,35
+19,breakfast_pastry,Medialuna,20
+20,breakfast_pastry,Pastry,40
+21,breakfast_pastry,Muffin,30
+22,condiments,Spread,40
+23,condiments,Honey,40
+24,condiments,Dulce de Leche,30
+25,condiments,Jam,60
+26,condiments,Chimichurri Oil,60
+27,condiments,Gingerbread syrup,60
+28,condiments,Extra Salami or Feta,70
+29,dessert,Bakewell,70
+30,dessert,Chocolates,30
+31,dessert,Crepes,40
+32,dessert,Panatone,40
+33,dessert,Raspberry shortbread sandwich,60
+34,dessert,Lemon and coconut,40
+35,dessert,Tartine,40
+36,dessert,Brownie,30
+37,dessert,Cake,100
+38,dessert,Bread Pudding,40
+39,dessert,Alfajores,40
+40,dessert,Fudge,40
+41,dessert,Cookies,30
+42,dessert,Truffles,30
+43,dessert,Victorian Sponge,30
+44,kids,Kids biscuit,130
+45,kids,My-5 Fruit Shoot,70
+46,kids,Ella's Kitchen Pouches,200
+47,lunch,Sandwich,40
+48,lunch,Chicken sand,40
+49,lunch,Chicken Stew,60
+50,lunch,Salad,70
+51,lunch,Soup,60
+52,other,Valentine's card,50
+53,other,Gift voucher,100
+54,other,Tshirt,70
+55,other,Postcard,30
+56,other,Drinking chocolate spoons ,70
+57,other,Nomad bag,800
+58,other,Christmas common,95
+59,other,Coffee granules ,120
+60,other,Adjustment,130
+61,other,Siblings,220
+62,other,NONE,0
+63,other,Afternoon with the baker,200
+64,snacks,Crisps,20
+65,snacks,Bare Popcorn,40
+66,snacks,Caramel bites,40
+67,snacks,Cherry me Dried fruit,35
+68,snacks,Mighty Protein,300
+69,snacks,Pick and Mix Bowls,50
+70,snacks,Raw bars,30

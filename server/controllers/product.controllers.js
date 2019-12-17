@@ -1,17 +1,18 @@
 const Product = require("../models/Product");
 
 exports.createProduct = async (req, res, next) => {
-    const { _id } = req.user;
-    await Product.create({ ...req.body, author: _id })
-    .then((product) => { res.status(201).json({ product })
+    console.log(req.body)
+    await Product.create( req.body.products)
+    .then((products) => { res.status(201).json({ products, msg:`productos creados ${products.length}`})
     .catch((err) => res.status(500).json({ err })); });
 }
 
-// exports.postGet = async (req, res) => {
-//   const { id } = req.params;
-//   const post = await Post.findById(id).populate("author");
-//   res.render("postPages/postDetailsPage", { post });
-// }
+exports.getProduct =  async (req, res) => {
+  const products = await Product.find();
+  console.log(products)
+  res.status(200).json({ products })
+  .catch(err => res.status(500).json({ err }));
+}
 
 // exports.deletePost = (req, res) => {
 //   const {id} = req.params

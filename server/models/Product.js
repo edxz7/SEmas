@@ -2,8 +2,8 @@ const { model, Schema } = require('mongoose');
 const productSchema = new Schema(
     {
         brand: String,
-        productName: String,
-        cathegory:String,
+        item: String,
+        category:String,
         class: {
             subclass:String
         },
