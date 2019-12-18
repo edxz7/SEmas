@@ -4,10 +4,14 @@ const { isAuth } =  require("../middleware/middllewares");
 
 const {
   createProduct,
-  getProduct
+  getProduct,
+  deleteProduct,
+  editProduct
 } = require('../controllers/product.controllers')
 
-router.post('/product/create', isAuth, createProduct);
-router.get('/product/get', isAuth, getProduct);
+router.post('/create', isAuth, createProduct);
+router.get('/get', isAuth, getProduct);
+router.post('/edit/:id', isAuth, editProduct);
+router.post('/delete', isAuth, deleteProduct);
 
 module.exports= router;

@@ -14,11 +14,12 @@ const Router = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={LogIn} />
-      <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/signup" component={MasterForm} />
       <Route exact path="/profile" component={DashboardPage} />
       <Route exact path="/metricas" component={DashboardPage} />
       <Route exact path="/ventas" component={DashboardPage} />
-      <Route exact path="/test" component={MasterForm} />
+      <Route exact path="/inventario" component={DashboardPage} />
+      <Route exact path="/test" component={SignUp} />
     </Switch>
   </BrowserRouter>
 );

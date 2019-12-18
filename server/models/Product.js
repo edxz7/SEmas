@@ -4,13 +4,14 @@ const productSchema = new Schema(
         brand: String,
         item: String,
         category:String,
+        quantity:Number,
         class: {
             subclass:String
         },
         price: Number,
-        author: {
+        commerceId: {
             type: Schema.Types.ObjectId,
-            ref: "User"
+            ref: "Commerce"
         }
     }, {
     timestamps: true,

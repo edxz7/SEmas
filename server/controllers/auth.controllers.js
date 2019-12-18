@@ -1,21 +1,28 @@
 const User = require('../models/User');
+const Commerce = require('../models/Commerce');
 
 // Method	Endpoint	    Parameters              	              Return Value
 // POST  	/auth/signup	username, userLastName, email, password   User created
-exports.signup = async (req, res) => {
-    const { username, userLastName, email, password } = req.body;
-    if(email ==="" || password==="") {
-        res.json({ err:"El email y password son requeridos" });
-    } 
-    await User.register( { username, userLastName, email }, password)
-        .then((user) => { res.status(201).json({ user }); })
+exports.signup =  (req, res) => {
+    const { username, userLastName, email, password, name, address, category, numEmployees  } = req.body;
+    console.log(req.body)
+     User.register( { username, userLastName, email }, password)
+        .then((user) => { 
+            res.status(201).json({ user }); 
+             Commerce.create( { name, address, category, numEmployees, author: user._id})
+            .then((commerce) => { res.status(201).json({ commerce, msg:`productos creados ${commerce.length}`})
+            .catch((err) => res.status(500).json({ err })); });
+        })
         .catch((err) => res.status(500).json({ err }));
 }
 // Method	Endpoint	    Parameters      	Return Value
 // POST	    /auth/login  	username, password	User logged
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     const { user } = req;
-    res.status(200).json({ user })
+    console.log(user._id)
+    const commerce = await Commerce.findOne({author: user._id})
+    console.log(commerce)
+    res.status(200).json({ user:user, commerce:commerce })
 }
 
 // Method	Endpoint	    Parameters      	Return Value

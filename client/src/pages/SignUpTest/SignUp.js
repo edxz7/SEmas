@@ -1,31 +1,29 @@
 import React, { Component } from "react";
 import  {OnBooaerdingForm, SubmitButton} from "./SignUp.Styles"
 import {MainButton} from "../../styledComponents/GenericStyles"
-
+import {withRouter} from "react-router-dom";
+import { MyContext } from "../../context";
 
 class MasterForm extends Component {
    state = {
-        currentStep: 1,
-        email:  '',
-        username: '',
-        password: '', 
+        currentStep: 1
     }
   
-    handleChange = event => {
-      const {name, value} = event.target
-      this.setState({
-        [name]: value
-      })    
-    }
+    // handleChange = event => {
+    //   const {name, value} = event.target
+    //   this.setState({
+    //     [name]: value
+    //   })    
+    // }
      
-    handleSubmit = event => {
-      event.preventDefault()
-      const { email, username, password } = this.state
-    //   alert(`Your registration detail: \n 
-    //          Email: ${email} \n 
-    //          Username: ${username} \n
-    //          Password: ${password}`)
-    }
+    // handleSubmit = event => {
+    //   event.preventDefault()
+    //   const { username, userLastName, email, password, name, address,  category, numEmployees} = this.state
+    // //   alert(`Your registration detail: \n 
+    // //          Email: ${email} \n 
+    // //          Username: ${username} \n
+    // //          Password: ${password}`)
+    // }
     
     _next = () => {
       let currentStep = this.state.currentStep
@@ -66,7 +64,12 @@ class MasterForm extends Component {
       return (
         <button 
           className="btn  float-right" 
-          type="button" onClick={this._next}
+          type="button" onClick={
+            e=>{
+              e.preventDefault();
+              this._next()
+            }
+            }
           style={{ backgroundColor: "#0ad5a0", color: "sblack"}}
           >
           
@@ -77,11 +80,10 @@ class MasterForm extends Component {
         return (
             <button 
               className="btn float-right" 
-              type="button" 
+              type="submit"
               style={{ backgroundColor: "#e40b81", color: "#fff"}}
-            //   onClick={}
             >
-            Crear Cuentaa
+            Crear Cuenta
             </button>        
           )
     }
@@ -90,35 +92,49 @@ class MasterForm extends Component {
     
     render() {    
       return (
+        <MyContext.Consumer>
+        {context => (
         <OnBooaerdingForm>
-        <h1>Sign up Situationn</h1>
-        <h2>Paso {this.state.currentStep} </h2> 
-  
-        <form onSubmit={this.handleSubmit}>
-        {/* 
-          render the form steps and pass required props in
-        */}
-          <Step1 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            email={this.state.email}
+          <h1>Registra  tus datos</h1>
+          <h2>Paso {this.state.currentStep} </h2> 
+    
+          <form onSubmit={e => {
+              e.preventDefault()
+              context.handleSignup(e);
+              this.props.history.push("/profile");
+            }}>
+            {/* 
+              render the form steps and pass required props in
+            */}
+            <Step1 
+              currentStep={this.state.currentStep} 
+              handleChange={e => context.handleInput(e, "formSignup")}
+              username={context.formSignup.username}
+              userLastName={context.formSignup.userLastName}
+              email={context.formSignup.email}
+              password={context.formSignup.password}
 
-          />
-          <Step2 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            username={this.state.username}
-          />
-          {/* <Step3 
-            currentStep={this.state.currentStep} 
-            handleChange={this.handleChange}
-            password={this.state.password}
-          /> */}
-          {this.previousButton()}
-          {this.nextButton()}
-  
+            />
+            <Step2 
+              currentStep={this.state.currentStep} 
+              handleChange={e => context.handleInput(e, "formSignup")}
+              name={context.formSignup.name}
+              address={context.formSignup.address}
+              category={context.formSignup.category}
+              numEmployees={context.formSignup.numEmployees}
+            />
+            {/* <Step3 
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+              password={this.state.password}
+            /> */}
+            {this.previousButton()}
+            {this.nextButton()}
+    
         </form>
         </OnBooaerdingForm>
+        )}
+    </MyContext.Consumer>
       );
     }
   }
@@ -133,23 +149,23 @@ class MasterForm extends Component {
         <label htmlFor="username">Nombre</label>
         <input
           className="form-control"
-          id="email"
+          id="username"
           name="username"
           type="text"
           placeholder="Nombre"
-          value={props.email}
+          value={props.username}
           onChange={props.handleChange}
           />
       </div>
       <div className="form-group">
-        <label htmlFor="username">Apellido</label>
+        <label htmlFor="userLastName">Apellido</label>
         <input
           className="form-control"
-          id="email"
+          id="userLastName"
           name="userLastName"
           type="text"
           placeholder="Apellido"
-          value={props.email}
+          value={props.userLastName}
           onChange={props.handleChange}
           />
       </div>
@@ -173,7 +189,7 @@ class MasterForm extends Component {
           name="password"
           type="password"
           placeholder="Enter password"
-          value={props.email}
+          value={props.password}
           onChange={props.handleChange}
           />
       </div>
@@ -188,50 +204,50 @@ class MasterForm extends Component {
     return(
         <>
         <div className="form-group">
-            <label htmlFor="username">Nombre del Comercio</label>
+            <label htmlFor="name">Nombre del Comercio</label>
             <input
             className="form-control"
             id="name"
             name="name"
             type="text"
             placeholder="Nombre del cmoercio"
-            value={props.username}
+            value={props.name}
             onChange={props.handleChange}
             />
         </div>
         <div className="form-group">
-            <label htmlFor="username">Tipo de mercancia</label>
+            <label htmlFor="numEmployees">Numero de empleados</label>
+            <input
+            className="form-control"
+            id="numEmployees"
+            name="numEmployees"
+            type="number"
+            placeholder="No. de empleados en tu empresa"
+            value={props.numEmployees}
+            onChange={props.handleChange}
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="category">Giro del comercio</label>
             <input
             className="form-control"
             id="category"
             name="category"
             type="text"
-            placeholder="Tipo de mercancia"
-            value={props.username}
+            placeholder="Giro del comercio"
+            value={props.category}
             onChange={props.handleChange}
             />
         </div>
         <div className="form-group">
-            <label htmlFor="username">Numero de empleados</label>
+            <label htmlFor="address">Direccion física del comercio</label>
             <input
             className="form-control"
-            id="category"
-            name="numEmployees"
-            type="number"
-            placeholder="No. de empleados en tu empresaa"
-            value={props.username}
-            onChange={props.handleChange}
-            />
-        </div>
-        <div className="form-group">
-            <label htmlFor="username">Direccion</label>
-            <input
-            className="form-control"
-            id="adress"
-            name="adress"
+            id="address"
+            name="address"
             type="text"
-            placeholder="No. de empleados en tu empresaa"
-            value={props.username}
+            placeholder="Dirección del comercio"
+            value={props.address}
             onChange={props.handleChange}
             />
         </div>
@@ -263,4 +279,4 @@ class MasterForm extends Component {
 //     );
  // }
   
-  export default MasterForm;
+  export default withRouter(MasterForm);

@@ -34,6 +34,15 @@ const MY_SERVICE = {
   },
   getProducts: async () => {
     return await service.get("/product/get");
+  },
+  updateProduct: async (id, product) => {
+    return await service.post(`/product/edit/${id}`, product);
+  },
+  deleteProducts: async (id) => {
+    return await service.post(`/product/delete/${id}`);
+  },
+  registerTransaction: async (transaction) => {
+    return await service.post("/transaction/create",transaction);
   }
 };
 

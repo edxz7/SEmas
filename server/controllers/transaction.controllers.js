@@ -1,8 +1,20 @@
 const Transaction = require("../models/Transaction");
+const Commerce = require("../models/Commerce");
 
 exports.createTransaction = async (req, res) => {
-    const { _id } = req.user;
-    await Transaction.create({ ...req.body, author: _id })
-    .then((transaction) => { res.status(201).json({ transaction })
-    .catch((err) => res.status(500).json({ err })); });
+    const { itemId, author, commerceId } = req.body;
+    const transaction = await Transaction.create({ itemId, author, commerceId })
+    await Commerce.findByIdAndUpdate(commerceId, { $push: { transactions: transaction._id } })
+    res.json({message: 'created'})
 }
+
+    exports.getTransaction = async (req, res) => {
+        Commerce.find({ store: id })
+        .populate('commerceId')
+        .populate('author')
+        .then((transaction) => {
+            res.status(200).json({ transaction });
+        })
+        .catch((err) => console.log(err));
+    }
+

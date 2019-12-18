@@ -1,14 +1,17 @@
 const {model, Schema} = require('mongoose');
 const transactionSchema = new Schema(
     {
-        quantity: Number,
-        item: {
+        itemId: {
             type: Schema.Types.ObjectId,
             ref: "Product"
         },	
         author: {
             type: Schema.Types.ObjectId,
             ref: 'User'
+        },
+        commerceId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Commerce'
         }
     }, {
         timestamps: true,

@@ -58,8 +58,8 @@ const product = require('./routes/product.routes');
 const transaction = require('./routes/transaction.routes');
 app.use('/', index);
 app.use('/', auth);
-app.use('/', product);
-app.use('/', transaction)
+app.use('/product', product);
+app.use('/transaction', transaction)
 
 // Uncomment this line for production
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));

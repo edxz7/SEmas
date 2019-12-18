@@ -11,8 +11,6 @@ class Profile extends Component {
   onPress = () => {
     this.setState({ submited: !this.state.submited });
   };
-
-
   getData = (e, apiKey, spreadsheetId, user) => {
     this.setState({ submited: !this.state.submited })
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${
@@ -51,44 +49,20 @@ class Profile extends Component {
                 <p>{context.state.user.email}</p>
               </div>
               <br />
-              <div id="commerce-info">
-              <h3>Información del comercio</h3>
-                <h5>Nombre del comercio</h5>
-                <h5>Dirección:</h5>
-              </div>
+
             </div>
-            <div id="inventory-form">
-  
-                <h4>Para registrar tu actividad y crear "insights" manten actualizado tu inventario</h4>
-  
-                <p>Puedes usar google sheets para mantener tu inventario organizado,</p>
-                <p>Usa el siguiente enlace para avilitar los permisos necesarios
-                   {" "}
-                  <a href="https://support.google.com/a/answer/60757?hl=es-419" target="_blank">aqui</a>
-                </p>
-                <form onSubmit={context.handleSubmitSpreadSheet}>
-                  <FormInput
-                    name='apiKey'
-                    type='text'
-                    handleChange={context.handleChangeSpreadSheet}
-                    value={context.state.apiKey}
-                    label='Llave de autorización'
-                    required
-                  />
-                  <FormInput
-                    name='spreadsheetId'
-                    type='text'
-                    handleChange={context.handleChangeSpreadSheet}
-                    value={context.state.spreadsheetId}
-                    label='Id de la hoja de calculo'
-                    required
-                  />
-                  <button onClick={(e) => {
-                    this.getData(e, context.state.apiKey, context.state.spreadsheetId, context.state.user);
-                    }} type="submit">Actualizar</button>
-                  { this.state.submited ?  <div>Tu inventario  a sido registrado, ahora puedes registrar tus ventas en la sección registrar -> ventas</div> : <div></div> }
-                </form>
-                <h4 id="option"> o sube tu inventario en formato .csv</h4>
+
+                <br />
+                <div id="commerce-info">
+                  <h3>Información del comercio</h3>
+                  <h5>Nombre del comercio</h5>
+                  <p>{context.state.commerce.name}</p>
+                  <h5>Categoria:</h5>
+                  <p>{context.state.commerce.category}</p>
+                  <h5>Numero de empleados:</h5>
+                  <p>{context.state.commerce.numEmployees}</p>
+                  <h5>Dirección:</h5>
+                  <p>{context.state.commerce.address}</p>
             </div>
           </ProfileStyle>
         )}

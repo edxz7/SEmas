@@ -1,32 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect, useContext} from 'react';
+import { MyContext } from "../../context";
 
 import {
   CheckoutItemContainer,
-  ImageContainer,
   TextContainer,
   QuantityContainer,
   RemoveButtonContainer
 } from './InventoryItem.Styles';
 
-const InventoryItem = ({ cartItem, clearItem, addItem, removeItem }) => {
-  const { item, category, price, quantity } = cartItem;
-  const chooseQuantity = 0;
+const InventoryItem = ({ cartItem }) => {
+  
+  const context = useContext(MyContext)
+  const { _id, item, category, price, quantity } = cartItem;
+  const [counter, setCounter] = useState(0);
+  const [stock, setStock] = useState(quantity);
+  const [transaction, setTransaction] = useState(
+    {
+      quantity: stock,
+      item: cartItem._id,
+      author: context.state.user._id,
+      commerceId:context.state.commerce._id
+    });
+  const [updated, setUpdated] = useState(false)
+    useEffect(() => {
+      if (!updated) return
+      context.handleRegisterTransaction(transaction)
+      setCounter(0)
+      setStock(transaction.quantity)
+      setUpdated(false)
+    }, [transaction]);
+
+  // console.log(transaction)
+  const addItemFunc = (cartItem, counter) => {
+    if (counter < transaction.quantity) {
+      counter++;
+      setCounter(counter)
+      setStock(transaction.quantity - counter)
+    }
+  }
+
+  const removeItemFunc = (cartItem, counter) => {
+    if (counter > 0) {
+      counter--;
+      setCounter(counter)
+      setStock(transaction.quantity - counter)
+    }
+  }
+
+
   return (
-    <CheckoutItemContainer>
-      <TextContainer>{item}</TextContainer>
-      <TextContainer>{category}</TextContainer>
-      <QuantityContainer>
-        <div onClick={() => removeItem(cartItem)}>&#10094;</div>
-        <span>{chooseQuantity}</span>
-        <div onClick={() => addItem(cartItem)}>&#10095;</div>
-      </QuantityContainer>
-      <TextContainer>{price}</TextContainer>
-      <RemoveButtonContainer onClick={() => clearItem(cartItem)}>
-        &#10005;
-      </RemoveButtonContainer>
-    </CheckoutItemContainer>
+    <MyContext>
+      {context => (
+        <CheckoutItemContainer>
+          <TextContainer>{item}</TextContainer>
+          <QuantityContainer>
+            <div onClick={() => removeItemFunc(cartItem, counter)}>&#10094;</div>
+            <span>{counter}</span>
+            <div onClick={() => addItemFunc(cartItem, counter)}>&#10095;</div>
+          </QuantityContainer>
+          <TextContainer>{price}</TextContainer>
+          <TextContainer>{stock}</TextContainer>
+
+          <RemoveButtonContainer onClick={(e) => {
+            setUpdated(true)
+            setTransaction({
+              quantity: stock,
+              itemId: cartItem._id,
+              author: context.state.user._id,
+              commerceId:context.state.commerce._id
+            })
+
+          }}>
+            &#10005;
+            {/* <input type="text" name="id" value={_id} hidden />
+            <input type="text" name="quantity" value={quantity} hidden /> */}
+          </RemoveButtonContainer>
+        </CheckoutItemContainer>
+      )}
+    </MyContext>
   );
 };
 
+InventoryItem.contextType = MyContext;
 
 export default InventoryItem;

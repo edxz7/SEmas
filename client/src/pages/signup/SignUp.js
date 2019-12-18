@@ -64,7 +64,7 @@ export default function SignupContainer(props) {
                 name='name'
                 type='text'
                 handleChange={e => context.handleInput(e, "formSignup")}
-                value={context.state.apiKey}
+                value={context.formSignup.name}
                 label='Nombre del comercio'
                 required
               />
@@ -72,7 +72,7 @@ export default function SignupContainer(props) {
                 name='category'
                 type='text'
                 handleChange={e => context.handleInput(e, "formSignup")}
-                value={context.state.spreadsheetId}
+                value={context.formSignup.category}
                 label='Giro del negocio'
                 required
               />
@@ -80,18 +80,11 @@ export default function SignupContainer(props) {
                 name='numEmployees'
                 type='number'
                 handleChange={e => context.handleInput(e, "formSignup")}
-                value={context.state.spreadsheetId}
+                value={context.formSignup.numEmployees}
                 label='Numero de empleados'
                 required
               />
-              <FormInput
-                name='numEmployees'
-                type='adress'
-                handleChange={e => context.handleInput(e, "formSignup")}
-                value={context.state.spreadsheetId}
-                label='Dirección'
-                required
-              />
+
               <button type="submit">Crea una cuenta</button>
             </form>
           </div>

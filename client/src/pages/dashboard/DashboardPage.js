@@ -6,6 +6,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import items from "../../components/Sidebar/Sidebar.Router"
 import Navbar from "../../components/Navbar/Navbar";
 import MenuIcon from '@material-ui/icons/Menu';
+import InventoryPage from "../../components/InventoryPage/InventoryPage";
 class DashboardMetrics extends Component {
   state = {
     on: true
@@ -27,7 +28,7 @@ class DashboardMetrics extends Component {
                   <Navbar/>
                   {(this.props.match.url === "/profile" ?  <Profile />
                   : this.props.match.url === "/metricas" ? <Dashboard /> 
-                  : this.props.match.url === "/ventas" ? <Sells/> : <Dashboard />  )}
+                  : this.props.match.url === "/ventas" ? <Sells/> : <InventoryPage />  )}
         </div>
       </div>
     );

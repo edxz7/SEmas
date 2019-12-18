@@ -12,7 +12,12 @@ class MyProvider extends Component {
       username: "",
       userLastName: "",
       email: "",
-      password: ""
+      password: "",
+ 
+      name:"",
+      address:"",
+      category:"",
+      numEmployees:""
     },
     loginForm: {
       username: "",
@@ -26,13 +31,18 @@ class MyProvider extends Component {
       quantity: 0
     },
     user: {},
+    commerce: {},
     file: {},
     product:{},
     uploaded: false,
     apiKey: '',
     spreadsheetId: '',
     inventory:[],
-    fullInventory:[]
+    fullInventory:[],
+    transaction:{
+      item:"",
+      author:""
+    },
   };
   componentDidMount() {
     if (document.cookie) {
@@ -70,9 +80,9 @@ class MyProvider extends Component {
     MY_SERVICE.login(this.state.loginForm)
       .then(({ data }) => {
         this.setState({ loggedUser: true, user: data.user })
+        this.setState({ commerce: data.commerce })
         cb()
       })
-
   };
 
   handleLogout = async cb => {
@@ -83,14 +93,8 @@ class MyProvider extends Component {
   };
 
 
-  handleFile = async (e) => {
-    this.setState({ file: e.target.files[0] })
-    // console.log(this.state.uploaded)
-  }
-
   handleUpload = async (e) => {
     await this.setState({ file: e.target.files[0], uploaded: !this.state.uploaded })
-    // console.log(this.state.uploaded)
     const formData = new FormData();
     formData.append('photo', this.state.file);
     const data = await MY_SERVICE.upload(formData);
@@ -98,7 +102,7 @@ class MyProvider extends Component {
     console.log(this.state.uploaded)
   }
 
-  // ---------------
+  // ---------Sumbmit inventory
 
   handleChangeSpreadSheet = event => {
     const { value, name } = event.target;
@@ -125,11 +129,42 @@ class MyProvider extends Component {
     Swal.fire(`Inventory created`, "with success", "success");
   }
 
+  // ------ Products
+
   handleGetProducts = async() => {
-    // e.preventDefault();
-    // this.setState({ fullInventory: data.product })
     return await MY_SERVICE.getProducts();
   }
+
+  handleUpdateProducts = async(id, product) => {
+    return await MY_SERVICE.updateProducts(id, product);
+  }
+
+  handleDeleteProducts = async(e) => {
+    await MY_SERVICE.deleteProducts(e.target.id);
+  }
+
+  // ----- Register transactions
+
+  handleRegisterTransaction = async (transaction) => {
+    const { inventory } = this.state
+    const { data } = await MY_SERVICE.registerTransaction(transaction);
+    const {data: product} = await MY_SERVICE.updateProduct(transaction.itemId, {quantity: transaction.quantity});
+    const newInventory = inventory.map(p => {
+      if (p._id === product._id) p = Object.assign({}, product)
+      return p
+    })
+    this.setState({inventory: newInventory })
+    // Swal.fire(`${data.item}`, "Trasnsaction registered with success", "success");
+  };
+
+
+  // ---------------
+  // handleCommerceSignup = async e => {
+  //   e.preventDefault();
+  //   const { data } = await MY_SERVICE.commerceSignup(this.state.formSignup);
+    // this.setState({ commerce: data.name })
+    // Swal.fire(`Your commerce has been ${data.commerce.name}`, "Register", "success");
+  // };
 
   render() {
     return (
@@ -150,7 +185,10 @@ class MyProvider extends Component {
           handleInventory:this.handleInventory,
           handleGetProducts:this.handleGetProducts,
           handleProductSubmit:this.handleProductSubmit,
-          handleInventorySubmit:this.handleInventorySubmit,
+          handleUpdateProducts:this.handleUpdateProducts,
+          handleDeleteProducts:this.handleDeleteProducts,
+          handleRegisterTransaction:this.handleRegisterTransaction,
+          handleCommerceSignup:this.handleCommerceSignup,
           state: this.state
         }}
       >
