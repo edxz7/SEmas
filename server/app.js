@@ -30,7 +30,8 @@ app.use(bodyParser.urlencoded({
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.FRONTENDPOINT]
+    origin: [process.env.FRONTENDPOINT],
+    preflightContinue: trrue
   })
 );
 
