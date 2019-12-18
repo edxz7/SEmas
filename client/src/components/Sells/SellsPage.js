@@ -1,32 +1,65 @@
-import React, {Component} from "react";
-import { SellsPageStyles } from "./SellsPage.Styles";
+import React, { Component } from "react";
 import { MyContext } from "../../context";
 import InventoryItem from "../Inventory/InventoryItem";
-import MY_SERVICE from "./services/index";
+
+import {
+    CheckoutPageContainer,
+    CheckoutHeaderContainer,
+    HeaderBlockContainer,
+    TotalContainer,
+    WarningContainer
+} from './SellsPage.Styles';
+
 
 class SellsPage extends Component {
     state = {
-        inventory:[]
+        inventory: []
     }
-    render(){
+
+    componentDidMount() {
+        this.context.handleGetProducts().then(({ data: { products } }) => {
+            console.log(products)
+            //Guarda el inventario
+            this.setState({ inventory: products })
+        }).catch(err => console.log(err))
+    }
+
+    render() {
+        const { inventory } = this.state;
         return (
-            <MyContext.Consumer>
-                {context => (        
-                    <SellsPageStyles id="dashboard">
-                        {
-                            context.handleGetProducts().then(res => {
-                                res.data.products.map((product, index) => (
-                                    console.log()
-                                ))
-                        })
-                        }
-                    </SellsPageStyles>
-                )}
-            </MyContext.Consumer>
+            <div id="dashboard">
+                {
+                <CheckoutPageContainer style={{color:"white"}}>
+                    <CheckoutHeaderContainer>
+                        <HeaderBlockContainer>
+                            <span>Product</span>
+                        </HeaderBlockContainer>
+                        <HeaderBlockContainer>
+                            <span>Description</span>
+                        </HeaderBlockContainer>
+                        <HeaderBlockContainer>
+                            <span>Quantity</span>
+                        </HeaderBlockContainer>
+                        <HeaderBlockContainer>
+                            <span>Price</span>
+                        </HeaderBlockContainer>
+                        <HeaderBlockContainer>
+                            <span>Solded</span>
+                        </HeaderBlockContainer>
+                    </CheckoutHeaderContainer>
+                    {
+                        inventory.map(product => ( 
+                            <InventoryItem key={product.id} cartItem={product} />
+                                        ))}
+                    {/* <TotalContainer>TOTAL: ${total}</TotalContainer> */}
+
+                </CheckoutPageContainer>
+
+                }
+            </div>
         )
     }
 }
-// SellsPage.contextType=MyContext;
+SellsPage.contextType = MyContext;
 export default SellsPage;
 
-{/* <InventoryItem key={product.id} cartItem={product} /> */}

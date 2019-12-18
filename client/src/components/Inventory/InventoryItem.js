@@ -10,12 +10,14 @@ import {
 
 const InventoryItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const { item, category, price, quantity } = cartItem;
+  const chooseQuantity = 0;
   return (
     <CheckoutItemContainer>
       <TextContainer>{item}</TextContainer>
+      <TextContainer>{category}</TextContainer>
       <QuantityContainer>
         <div onClick={() => removeItem(cartItem)}>&#10094;</div>
-        <span>{quantity}</span>
+        <span>{chooseQuantity}</span>
         <div onClick={() => addItem(cartItem)}>&#10095;</div>
       </QuantityContainer>
       <TextContainer>{price}</TextContainer>

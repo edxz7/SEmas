@@ -11,8 +11,8 @@ export const colors = {
 
 export const MainButton = styled.button`
     margin: 10px;
-    font-size: 1.6em;
-    padding: 10px 50px;
+    font-size: 1em;
+    padding: 10px 20px;
     background-color: ${colors.rosaMexicano};
     color:  white;
     border: none;
@@ -27,8 +27,8 @@ export const MainButton = styled.button`
 
 export const SecondaryButton = styled.button`
     width: 100%;
-    font-size: 1.6em;
-    padding: 10px 50px;
+    font-size: 1em;
+    padding: 10px 20px;
     background-color: ${colors.verdeMain} !important;
     color: ${colors.azulObscuro} ;
     border: none;

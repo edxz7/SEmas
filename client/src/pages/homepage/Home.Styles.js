@@ -17,6 +17,9 @@ export const MyBlocks = styled.div`
  export const HomeStyles = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
   padding-top: 10%;
+  body{
+    background-color: #fff !important;
+  }
   header h1{
     font-family: Montserrat;
     color:#0ad5a0;

@@ -5,7 +5,8 @@ import SignUp from "./pages/signup/SignUp";
 import LogIn from "./pages/login/LogIn";
 import DashboardPage from "./pages/dashboard/DashboardPage"
 import NotFound from "./pages/404/NotFound.js";
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar";
+import MasterForm from "./pages/SignUpTest/SignUp"
 
 const Router = () => (
   <BrowserRouter>
@@ -17,7 +18,7 @@ const Router = () => (
       <Route exact path="/profile" component={DashboardPage} />
       <Route exact path="/metricas" component={DashboardPage} />
       <Route exact path="/ventas" component={DashboardPage} />
-      <Route component={NotFound} />
+      <Route exact path="/test" component={MasterForm} />
     </Switch>
   </BrowserRouter>
 );
