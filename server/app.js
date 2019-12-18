@@ -31,7 +31,7 @@ app.use(
   cors({
     credentials: true,
     origin: [process.env.FRONTENDPOINT],
-    preflightContinue: trrue
+    preflightContinue: true
   })
 );
 
