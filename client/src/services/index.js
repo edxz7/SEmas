@@ -5,7 +5,7 @@ process.env.NODE_ENV === "production"
   ? (baseURL = "https://crecemass.herokuapp.com")
   : (baseURL = "http://localhost:3000");
 
-const service = axios.create({ withCredentials: true, baseURL });
+const service = axios.create({ baseURL });
 
 const MY_SERVICE = {
   test: async () => {
