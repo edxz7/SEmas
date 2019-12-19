@@ -74,7 +74,7 @@ app.use('/', auth);
 app.use('/product', product);
 app.use('/transaction', transaction)
 
-// Uncomment this line for production
-// app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+
+app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 module.exports = app;
