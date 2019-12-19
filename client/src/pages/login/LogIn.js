@@ -25,7 +25,7 @@ export default class LogIn extends Component {
             }}
           >
             <div className="duo-div">
-              <h1>Ingresa</h1>
+              <h1>Ingresa a la plataforma</h1>
               <div className="form-container">
                 <tag>Email</tag>
                 <MyInput

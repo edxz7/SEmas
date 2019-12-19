@@ -15,7 +15,7 @@ const items = [
       Icon: DashboardIcon,
       items: [
         { name: "Metricas", label: "Metricas", route:'metricas' },
-        { name: "Tipos", label: "Tipos de usuario", route:'usertypes' }
+        // { name: "Tipos", label: "Tipos de usuario", route:'usertypes' }
       ]
     },
     "divider",

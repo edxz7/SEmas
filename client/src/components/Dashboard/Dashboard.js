@@ -1,146 +1,202 @@
 import { Container } from "./Dashboard-Styled-Components";
 import Navbar from "../Navbar/Navbar";
 import KPICard from "../KPICard/KPICard";
+import ChartTable from "../ChartTable/ChartTable";
 import React, { Component} from 'react';
 import { MyContext } from "../../context";
+import LineChart from "../SellsDayLineChart/SellsDayLineChart";
+import BarChart from "../SellsWeeklyBarChart/SellsWeeklyBarChart";
 
-import BarChart from "../BarChart/BarChart";
-import LineChart from "../BarChart/BarChart";
+
 
 
 
 class Dashboard extends Component  {
-  // state = {
-  //   labels: [],
-  //   data: [],
-  //   totalSells:0,
-  //   topSellProducts:[],
-  //   topSellProductsWeek:[],
-  //   cathegoryData:[]
-  // }
-
- getRandomArray(numItems) {
-    // Create random array of objects
-    let names = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let data = [];
-    for(var i = 0; i < numItems; i++) {
-      data.push({
-        label: names[i],
-        value: Math.round(20 + 80 * Math.random())
-      });
-    }
-    return data;
-  }
-  
-  getRandomDateArray(numItems) {
-    // Create random array of objects (with date)
-    let data = [];
-    let baseTime = new Date('2018-05-01T00:00:00').getTime();
-    let dayMs = 24 * 60 * 60 * 1000;
-    for(var i = 0; i < numItems; i++) {
-      data.push({
-        time: new Date(baseTime + i * dayMs),
-        value: Math.round(20 + 80 * Math.random())
-      });
-    }
-    console.log(data)
-    return data;
-  }
-  
-  getData() {
-    let feeds = [];
-    feeds.push({
-      title: 'Visits',
-      data: this.getRandomDateArray(150)
-    });
-    feeds.push({
-      title: 'Categories',
-      data: this.getRandomArray(20)
-    });
-    feeds.push({
-      title: 'Categories',
-      data: this.getRandomArray(10)
-    });
-    feeds.push({
-      title: 'Data 4',
-      data: this.getRandomArray(6)
-    });
-    return feeds;
-  }
-
 
   state = {
-    data: this.getData()
-  };
-
-
-  componentDidMount() {
-    window.setInterval(() => {
-      this.setState({
-        data: this.getData()
-      })
-    }, 5000)
+    dailySellslabels: [],
+    dailySellsdata: [],
+    totalSells:0,
+    stockInventoryValue:0,
+    topSellProducts:[],
+    topSellProductsWeek:[],
+    cathegoryData:[],
+    sellsPerDay : {
+      labels: [],
+      datasets: [
+        {
+          data: []
+        }
+      ]
+    },
+    sellsPerWeek : {
+      labels: [],
+      datasets: [
+        {
+          data: []
+        }
+      ]
+    }
   }
 
+  getStartOfWeek (date){
+    var iDayOfWeek = date.getDay();
+    var iDifference = date.getDate() - iDayOfWeek + (iDayOfWeek === 0 ?  -6:1);
 
-//   componentDidMount() {
-//     this.context.handleGetTransaction().then(({ data: { transactions } }) => {
-//       const data = transactions.transactions;
-//       this.setState({data})
-//     }).catch(err => console.log(err))
-// }
-  // parseData() {
-  //   this.state.data.map(({price, product, quantity, createdAt}) => {
-  //     let date = new Date(createdAt);
-  //     console.log(price, product, quantity, createdAt);
-  //     console.log(date);
-  //   })
-  // }
+    return new Date(date.setDate(iDifference));
+  } 
+
+  between(d, ws) {
+    return d >= ws && d <= ws+7;
+  }
+
+  componentDidMount() {
+    //Get the current date
+    let today = new Date();
+    let ddToday = String(today.getDate()).padStart(2, '0');
+    let hhToday = String(today.getHours()).padStart(2, '0');
+    console.log(ddToday);
+    let weekStart = Number(this.getStartOfWeek(today).toString().split(" ")[2]) + 1;
+
+    this.context.handleGetTransaction().then(({ data: { transactions } }) => {
+      const data = transactions.transactions;
+      const sells = []
+      const dailySellsLabels = [];
+      const dailySellsData = [];
+      const weeklySellsLabels = [];
+      const weeklySellsData = [];
+      let dailyCounter = {}; 
+      let weeklyCounter = {};
+      let revenue = 0;
+      
+      data.map(({price, product, quantity, createdAt}) => {
+        sells.push([product,quantity])
+        let date = new Date(createdAt);
+        let hh = String(date.getHours()).padStart(2, '0')
+        let dd = String(date.getDate()).padStart(2, '0')
+        let mm = String(date.getMonth() + 1).padStart(2, '0') 
+        let yyyy = date.getFullYear()
+        date = yyyy + '-' + mm + '-' + dd
+        // console.log(price, product, quantity, createdAt);
+        // console.log(hh, dd, mm, yyyy);
+        revenue += price*quantity
+        //Only add data if it belonggs to the current day 
+        if(ddToday===dd && hh ){
+          dailyCounter[ hh[0]==='0' ? Number(hh[1]):Number(hh)] = (dailyCounter[hh[0]==='0' ? Number(hh[1]):Number(hh)] || 0)+1; 
+        }
+  
+        weeklyCounter[ dd[0]==='0' ? Number(dd[1]):Number(dd)] = (weeklyCounter[dd[0]==='0' ? Number(dd[1]):Number(dd)] || 0)+1; 
+        
+      })
+      // data for the daily sells plot
+      for(let i = 0; i < 24; i++ ){
+        console.log(dailyCounter[i])
+        if(i <= (hhToday[0]==='0' ? Number(hhToday[1]):Number(hhToday))){
+          if(dailyCounter[i]){
+            dailySellsData.push(dailyCounter[i])
+          } else{
+            dailySellsData.push(0)
+          }
+          dailySellsLabels.push(i)
+        }
+      }
+      //data for weekly plots
+      for(let i=0+weekStart; i < 7+weekStart; i++ ){
+        console.log(this.between(i, weekStart))
+        if(this.between(i, weekStart)){ //We check to  plot only this week data
+          if(weeklyCounter[i]){
+            console.log("El counter",weeklyCounter[i])
+            weeklySellsData.push(weeklyCounter[i])
+          } else{
+            weeklySellsData.push(0)
+          }
+          weeklySellsLabels.push(i)
+        }
+      }
+      console.log(weeklySellsLabels)
+      console.log(weeklySellsData)
+      //Set daily sells
+      this.setState({sellsPerDay:{labels:dailySellsLabels}})    
+      console.log(typeof this.state.sellsPerDay)
+      this.setState(prevState => ({
+        ...prevState,
+        sellsPerDay: {
+            ...prevState.sellsPerDay,
+            datasets: [
+              {
+                label: 'Ventas del dia',
+                labelColor:'rgba(75,192,192,1)',
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(75,192,192,1)',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10, 
+                data: dailySellsData
+              }]
+            }
+        }))
+      //Set weekly sells
+      this.setState({sellsPerWeek:{labels:weeklySellsLabels}})    
+      this.setState(prevState => ({
+        ...prevState,
+        sellsPerWeek: {
+            ...prevState.sellsPerWeek,
+            datasets: [
+              {
+                label: 'Ventas semanales',
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: weeklySellsData
+              }]
+            }
+        }))
+
+      //KPIs  
+      //Get yhe top three sell products
+      this.setState({topSellProducts: sells.slice(0, 3)});
+      this.setState({totalSells: revenue}); //Total money earn
+     }).catch(err => console.log(err))
+  } 
 
   render(){
-    const { data } = this.state;
-    // this.parseData()
 
     return (
 
       <Container id="dashboard">
 
         {/* static navbar - top */}
-          <Navbar
-            // options={this.state.dropdownOptions}
-            // onChange={this.updateDashboard}
-            // value={this.state.selectedValue}
-          />
+          <Navbar/>
         {/* content area start */}
         <Container className="container-fluid pr-5 pl-5 pt-5 pb-5">
           {/* row 1 - revenue */}
           <Container className="row">
-            <KPICard
-              // title="Total Revenue"
-              // value={this.state.totalRevenue}
-            />
-            <KPICard
-              // title="Revenue from Amazon"
-              // value={this.state.amRevenue}
-            />
 
             <KPICard
-              // title="Revenue from Ebay"
-              // value={this.state.ebRevenue}
+              title="Ventas Totales"
+              value={this.state.totalSells}
             />
 
-            <KPICard
-              // title="Revenue from Etsy"
-              // value={this.state.etRevenue}
-            />
           </Container>
 
           {/* row 2 - conversion */}
-          <Container className="row">
+          {/* <Container className="row">
             <KPICard
-              // title="Product Views"
-              // value={this.state.productViews}
-              // views="views"
+              title="Product Views"
+              value={this.state.productViews}
+              views="views"
             />
 
             <Container className="col-md-8 col-lg-9 is-light-text mb-4">
@@ -158,54 +214,20 @@ class Dashboard extends Component  {
                   </Container>
                   <Container className="col-sm-4 full-height">
                     <Container className="chart-container full-height">
-                      {/* <ReactFC
-                        {...{
-                          type: "doughnut2d",
-                          width: "100%",
-                          height: "100%",
-                          dataFormat: "json",
-                          containerBackgroundOpacity: "0",
-                          dataSource: {
-                            chart: {
-                              caption: "Abandoned Cart Rate",
-                              theme: "crece+",
-                              defaultCenterLabel: `${
-                                this.state.abandonedRate
-                                }%`,
-                              paletteColors: "#EDF8B1, #000000"
-                            },
-                            data: [
-                              {
-                                label: "active",
-                                value: `${this.state.abandonedRate}`
-                              },
-                              {
-                                label: "inactive",
-                                alpha: 5,
-                                value: `${100 - this.state.abandonedRate}`
-                              }
-                            ]
-                          }
-                        }}
-
-                      /> */}
+         
                     </Container>
                   </Container>
                 </Container>
               </Container>
             </Container>
-          </Container>
+          </Container> */}
 
           {/* row 3 - orders trend */}
           <Container className="row" style={{ minHeight: "400px" }}>
             <Container className="col-md-6 mb-4">
               <Container className="card is-card-dark chart-card">
                 <Container className="chart-container large full-height">
-                <BarChart
-                        data={this.state.data[1].data}
-                        title={this.state.data[1].title}
-                        color="#70CAD1"
-                      />
+                <LineChart data = {this.state.sellsPerDay}/>
                 </Container>
               </Container>
             </Container>
@@ -213,11 +235,8 @@ class Dashboard extends Component  {
             <Container className="col-md-6 mb-4">
               <Container className="card is-card-dark chart-card">
                 <Container className="chart-container large full-height">
-                      <LineChart
-                        data={this.state.data[0].data}
-                        title={this.state.data[0].title}
-                        color="#3E517A"
-                      />
+                <BarChart data = {this.state.sellsPerWeek}/>
+
                 </Container>
               </Container>
             </Container>
