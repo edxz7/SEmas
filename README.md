@@ -1,4 +1,8 @@
-# crece
+# crece +
+
+Crece + es una plataforma cuyo objetivo es brindar insights a pymes registrando sus ventas y ayudandolas a crecer mediante decisiones basadas en datos.  
+
+--------------
 
 User for login
 
