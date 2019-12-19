@@ -2,7 +2,7 @@ import axios from "axios";
 let baseURL;
 
 process.env.NODE_ENV === "production"
-  ? (baseURL = "https://immense-retreat-83657.herokuapp.com")
+  ? (baseURL = "https://crecemass.herokuapp.com")
   : (baseURL = "http://localhost:3000");
 
 const service = axios.create({ withCredentials: true, baseURL });
