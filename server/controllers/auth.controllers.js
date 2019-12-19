@@ -5,12 +5,10 @@ const Commerce = require('../models/Commerce');
 // POST  	/auth/signup	username, userLastName, email, password   User created
 exports.signup =  (req, res) => {
     const { username, userLastName, email, password, name, address, category, numEmployees  } = req.body;
-    console.log(req.body)
      User.register( { username, userLastName, email }, password)
-        .then((user) => { 
-            res.status(201).json({ user }); 
+        .then((user) => {  
              Commerce.create( { name, address, category, numEmployees, author: user._id})
-            .then((commerce) => { res.status(201).json({ commerce, msg:`productos creados ${commerce.length}`})
+            .then((commerce) => { res.status(200).json({user, commerce})
             .catch((err) => res.status(500).json({ err })); });
         })
         .catch((err) => res.status(500).json({ err }));

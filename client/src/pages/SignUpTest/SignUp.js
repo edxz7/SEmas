@@ -6,24 +6,9 @@ import { MyContext } from "../../context";
 
 class MasterForm extends Component {
    state = {
-        currentStep: 1
+        currentStep: 1,
+        messages:["Registra tu información personal", "Registra tu comercio"]
     }
-  
-    // handleChange = event => {
-    //   const {name, value} = event.target
-    //   this.setState({
-    //     [name]: value
-    //   })    
-    // }
-     
-    // handleSubmit = event => {
-    //   event.preventDefault()
-    //   const { username, userLastName, email, password, name, address,  category, numEmployees} = this.state
-    // //   alert(`Your registration detail: \n 
-    // //          Email: ${email} \n 
-    // //          Username: ${username} \n
-    // //          Password: ${password}`)
-    // }
     
     _next = () => {
       let currentStep = this.state.currentStep
@@ -72,7 +57,6 @@ class MasterForm extends Component {
             }
           style={{ backgroundColor: "#0ad5a0", color: "sblack"}}
           >
-          
         Siguiente
         </button>        
       )
@@ -87,7 +71,6 @@ class MasterForm extends Component {
             </button>        
           )
     }
-    return null;
   }
     
     render() {    
@@ -96,12 +79,13 @@ class MasterForm extends Component {
         {context => (
         <OnBooaerdingForm>
           <h1>Registra  tus datos</h1>
-          <h2>Paso {this.state.currentStep} </h2> 
+          <h2>{this.state.messages[this.state.currentStep - 1]} </h2> 
     
           <form onSubmit={e => {
               e.preventDefault()
-              context.handleSignup(e);
-              this.props.history.push("/profile");
+              context.handleSignup(e, () => {
+                this.props.history.push("/profile");
+              });
             }}>
             {/* 
               render the form steps and pass required props in
@@ -123,11 +107,6 @@ class MasterForm extends Component {
               category={context.formSignup.category}
               numEmployees={context.formSignup.numEmployees}
             />
-            {/* <Step3 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              password={this.state.password}
-            /> */}
             {this.previousButton()}
             {this.nextButton()}
     
@@ -155,6 +134,7 @@ class MasterForm extends Component {
           placeholder="Nombre"
           value={props.username}
           onChange={props.handleChange}
+          required
           />
       </div>
       <div className="form-group">
@@ -179,6 +159,7 @@ class MasterForm extends Component {
           placeholder="Enter email"
           value={props.email}
           onChange={props.handleChange}
+          required
           />
       </div>
       <div className="form-group">
@@ -191,6 +172,7 @@ class MasterForm extends Component {
           placeholder="Enter password"
           value={props.password}
           onChange={props.handleChange}
+          required
           />
       </div>
         </>
@@ -213,6 +195,7 @@ class MasterForm extends Component {
             placeholder="Nombre del cmoercio"
             value={props.name}
             onChange={props.handleChange}
+            required
             />
         </div>
         <div className="form-group">
@@ -237,6 +220,7 @@ class MasterForm extends Component {
             placeholder="Giro del comercio"
             value={props.category}
             onChange={props.handleChange}
+            required
             />
         </div>
         <div className="form-group">
@@ -249,34 +233,12 @@ class MasterForm extends Component {
             placeholder="Dirección del comercio"
             value={props.address}
             onChange={props.handleChange}
+            required
             />
         </div>
         </>
       
     );
   }
-  
-//   function Step3(props) {
-//     if (props.currentStep !== 3) {
-//       return null
-//     } 
-//     return(
-//       <React.Fragment>
-//       <div className="form-group">
-//         <label htmlFor="password">Password</label>
-//         <input
-//           className="form-control"
-//           id="password"
-//           name="password"
-//           type="password"
-//           placeholder="Enter password"
-//           value={props.password}
-//           onChange={props.handleChange}
-//           />      
-//       </div>
-//       <button className="btn btn-success btn-block">Sign up</button>
-//       </React.Fragment>
-//     );
- // }
   
   export default withRouter(MasterForm);

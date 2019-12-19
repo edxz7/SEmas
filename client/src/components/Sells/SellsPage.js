@@ -5,9 +5,7 @@ import InventoryItem from "../Inventory/InventoryItem";
 import {
     CheckoutPageContainer,
     CheckoutHeaderContainer,
-    HeaderBlockContainer,
-    TotalContainer,
-    WarningContainer
+    HeaderBlockContainer
 } from './SellsPage.Styles';
 
 
@@ -29,18 +27,14 @@ class SellsPage extends Component {
 
     handleSearch = e => {
         e.preventDefault();
-        const { searchBar } = this.state
-        const key = e.target.name
-        searchBar[key] = e.target.value
-    
+        const { searchBar } = this.state;
+        const key = e.target.name;
+        searchBar[key] = e.target.value;
         this.setState(prevState => {
-            
             const filteredData = prevState.inventory.filter(product => {
             return product.item!==undefined ? product.item.toLowerCase().includes(searchBar[key].toLowerCase()):"";
             });
             this.setState({ filteredData })
-            console.log(filteredData)
-        
         });
       }
 

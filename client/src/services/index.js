@@ -11,8 +11,8 @@ const MY_SERVICE = {
   test: async () => {
     return await service.get("/");
   },
-  signup: async user => {
-    return await service.post("/signup", user);
+  signup: async formm => {
+    return await service.post("/signup", formm);
   },
   login: async user => {
     return await service.post("/login", user);
@@ -20,7 +20,7 @@ const MY_SERVICE = {
   logout: async () => {
     return await service.post("/logout");
   },
-  loggedIn: async () => {
+  getUser: async () => {
     return await service.get("/loggedin");
   },
   edit: async () => {
@@ -43,6 +43,9 @@ const MY_SERVICE = {
   },
   registerTransaction: async (transaction) => {
     return await service.post("/transaction/create",transaction);
+  },
+  getTransactions: async (commerce) => {
+    return await service.post("/transaction/get",commerce);
   }
 };
 

@@ -1,6 +1,9 @@
 const {model, Schema} = require('mongoose');
 const transactionSchema = new Schema(
     {
+        price:Number,
+        quantity:Number,
+        product:String,
         itemId: {
             type: Schema.Types.ObjectId,
             ref: "Product"
