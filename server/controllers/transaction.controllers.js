@@ -9,7 +9,7 @@ exports.createTransaction = async (req, res) => {
 }
 
     exports.getTransaction = async (req, res) => {
-        Commerce.find({ store: id })
+        Commerce.find({ commerce: id })
         .populate('commerceId')
         .populate('author')
         .then((transaction) => {

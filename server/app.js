@@ -57,6 +57,7 @@ const index = require('./routes/index');
 const auth = require('./routes/auth.routes');
 const product = require('./routes/product.routes');
 const transaction = require('./routes/transaction.routes');
+
 app.use('/', index);
 app.use('/', auth);
 app.use('/product', product);
