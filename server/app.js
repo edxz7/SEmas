@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTENDPOINT);
+  res.setHeader('Access-Control-Allow-Origin', 'https://priceless-brown-eb0e85.netlify.com');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
