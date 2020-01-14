@@ -5,7 +5,11 @@ const Commerce = require('../models/Commerce');
 // POST  	/auth/signup	username, userLastName, email, password   User created
 exports.signup =  (req, res) => {
     const { username, userLastName, email, password, name, address, category, numEmployees  } = req.body;
-     User.register( { username, userLastName, email }, password)
+     User.register( { username, userLastName, email }, password, (err) => {
+        if (err) {
+          return res.status(200).json({error: "El email que intentas registrar ya esta en uso. Trata con otro email."});
+        }
+    })
         .then((user) => {  
              Commerce.create( { name, address, category, numEmployees, author: user._id})
             .then((commerce) => { res.status(200).json({user, commerce})
@@ -15,12 +19,15 @@ exports.signup =  (req, res) => {
 }
 // Method	Endpoint	    Parameters      	Return Value
 // POST	    /auth/login  	username, password	User logged
-exports.login = async (req, res) => {
+exports.login = async (req, res, err) => {
+    // if (err) {
+    //     return res.status(500).json({ err })
+    // }
     const { user } = req;
-    console.log(user._id)
-    const commerce = await Commerce.findOne({author: user._id})
-    console.log(commerce)
-    res.status(200).json({ user:user, commerce:commerce })
+    console.log(req.body.email)
+    User.findOne({email:req.body.email})
+    Commerce.findOne({author: user._id})
+    .then((commerce) => {res.status(200).json({ user:user, commerce:commerce })})
 }
 
 // Method	Endpoint	    Parameters      	Return Value

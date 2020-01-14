@@ -38,7 +38,7 @@ class InventoryPage extends Component {
     return (
       <MyContext.Consumer>
         {context => (
-          <InventoryStyles id="dashboard" class="profile-container" style={{ color: "white", display: "flex" }}>
+          <InventoryStyles id="dashboard" className="profile-container" style={{ color: "white", display: "flex" }}>
             <div id="profile-info">
               <div id="user-info">
                 <h3>Registra tu onventario</h3>
@@ -50,7 +50,7 @@ class InventoryPage extends Component {
                 <p>Puedes usar google sheets para mantener tu inventario organizado,</p>
                 <p>Usa el siguiente enlace para avilitar los permisos necesarios
                    {" "}
-                  <a href="https://support.google.com/a/answer/60757?hl=es-419" target="_blank">aqui</a>
+                  <a href="https://support.google.com/a/answer/60757?hl=es-419" target="_blank" rel="noopener noreferrer">aqui</a>
                 </p>
                 <form onSubmit={context.handleSubmitSpreadSheet}>
                   <FormInput

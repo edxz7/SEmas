@@ -1,10 +1,10 @@
 import React from 'react';
-
+import {NotFoundStyles} from './NotFound.Styles';
 function NotFound() {
   return (
-    <div>
+    <NotFoundStyles>
       <h2>Not found</h2>
-    </div>
+    </NotFoundStyles>
   );
 }
 

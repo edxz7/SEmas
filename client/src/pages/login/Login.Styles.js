@@ -13,6 +13,7 @@ export const MyInput = styled.input`
   
 
  export const LogInStyles = styled.form`
+ color:white;
   width: 100vw;
   height: 100vh;
   padding: 6% 10%;

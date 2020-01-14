@@ -16,28 +16,24 @@ function Navbar(props) {
                             </Container>
                         </OptionLink>
                         <Container className="navbar-nav ml-auto">
-                            <OptionLink as='div'>
-                                <span className="pr-2">Hola, {context.state.user.username} {context.state.user.userLastName} {context.state.user.userLastName}</span>
+                            <div>
+                                <span className="pr-2">Hola, {context.state.user.username} {context.state.user.userLastName} </span>
                                 <span className="img-container">
                                     {/* <img src={UserImg} className="rounded-circle" alt="user" /> */}
                                 </span>
-                            </OptionLink>
+                            </div>
                             <Container className="user-detail-section">
 
                             </Container>
                             <Container className="user-detail-section">
-                                {context.state.user==={} ? (
-                                    <OptionLink as='div' onClick={e => {
-                                        e.preventDefault()
-                                        context.handleLogout(() => {
-                                            props.history.push("/signup");
-                                        });
-                                    }}>
-                                        SIGN OUT
+                                <OptionLink as='div' onClick={e => {
+                                    e.preventDefault()
+                                    context.handleLogout(() => {
+                                        props.history.push('/');
+                                    });
+                                }} to=''>
+                                    Log out
                                 </OptionLink>
-                                ) : (
-                                        <OptionLink as='div' to='/login'>Log In</OptionLink>
-                                    )}
                             </Container>
                         </Container>
                     </Nav>

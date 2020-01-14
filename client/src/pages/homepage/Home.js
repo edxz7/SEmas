@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import barRaise from "../../assets/images/bar_raise.png";
 import pie from "../../assets/images/pie.png";
 import currency from "../../assets/images/currency.png";
-import {HomeStyles, MyBlocks} from "./Home.Styles";
+import {HomeStyles, CustomBlocks} from "./Home.Styles";
 import { MainButton } from "../../styledComponents/GenericStyles"
 
 
@@ -15,21 +15,21 @@ export default class Home extends Component {
           <h1>Crece +</h1>
         </header>
         <section className="main-container">
-          <MyBlocks className="subcontainer">
+          <CustomBlocks className="subcontainer">
             <img src={barRaise} alt="" />
             <h2>Tus datos crecen tu negocio</h2>
             <p>La información de tus ventas te ayudara a tomar las mejores decisiones para tu negocio</p>
-          </MyBlocks>
-          <MyBlocks className="subcontainer">
+          </CustomBlocks>
+          <CustomBlocks className="subcontainer">
             <img src={pie} alt="" />
             <h2>AI a tu servicio</h2>
             <p>Usa modelos predictivos para crecer tu negocio</p>
-          </MyBlocks>
-          <MyBlocks className="subcontainer">
+          </CustomBlocks>
+          <CustomBlocks className="subcontainer">
             <img src={currency} alt="" />
             <h2>Maximizar tus ganancias </h2>
             <p>Obten recomendaciones en tiempo real para maximizar tus ganancias</p>
-          </MyBlocks>
+          </CustomBlocks>
         </section>
         <section className="btn-container">
           <Link to="/signup">

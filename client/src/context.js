@@ -15,20 +15,15 @@ class MyProvider extends Component {
       password: "",
  
       name:"",
-      address:"",
       category:"",
-      numEmployees:""
+      numEmployees:"",
+      place: {
+        coordinates:[]
+      }
     },
     loginForm: {
-      username: "",
+      email: "",
       password: ""
-    },
-    productForm: {
-      brand: "",
-      productName: "",
-      detail: [],
-      price: 0,
-      quantity: 0
     },
     user: {},
     commerce: {},
@@ -43,6 +38,7 @@ class MyProvider extends Component {
       item:"",
       author:""
     },
+    errors:{}
   };
 
 
@@ -50,6 +46,7 @@ class MyProvider extends Component {
     if (document.cookie) {
       MY_SERVICE.getUser()
         .then(({ data }) => {
+          console.log(data)
           this.setState({ loggedUser: true, user: data.user });
           this.setState({ commerce: data.commerce});
           Swal.fire(`Bienvenido de vuelta ${data.user.name} `, "", "exito");
@@ -70,6 +67,20 @@ class MyProvider extends Component {
     const key = e.target.name;
     a[key] = e.target.value;
     this.setState({ obj: a });
+    console.log(this.state.formSignup)
+  };
+
+  handleLoc = (coordinates) => {
+    this.setState(prevState => ({
+      ...prevState,
+      formSignup:{
+        ...prevState.formSignup,
+        place:{
+          coordinates:coordinates
+        }
+      }
+    }));
+    console.log(this.state.formSignup)
   };
 
 
@@ -89,12 +100,15 @@ class MyProvider extends Component {
 
   handleLogin = (e, cb) => {
     e.preventDefault();
-    MY_SERVICE.login(this.state.loginForm)
+    const msg = MY_SERVICE.login(this.state.loginForm)
       .then(({ data }) => {
         this.setState({ loggedUser: true, user: data.user })
         this.setState({ commerce: data.commerce })
         cb()
-      })
+        console.log(data)
+      }).catch(error => {
+        this.setState({errors:error.response})
+        })
   };
 
   handleLogout = async cb => {
@@ -105,14 +119,14 @@ class MyProvider extends Component {
   };
 
 
-  handleUpload = async (e) => {
-    await this.setState({ file: e.target.files[0], uploaded: !this.state.uploaded })
-    const formData = new FormData();
-    formData.append('photo', this.state.file);
-    const data = await MY_SERVICE.upload(formData);
-    await this.setState({ user: this.state.user, uploaded: !this.state.uploaded })
-    console.log(this.state.uploaded)
-  }
+  // handleUpload = async (e) => {
+  //   await this.setState({ file: e.target.files[0], uploaded: !this.state.uploaded })
+  //   const formData = new FormData();
+  //   formData.append('photo', this.state.file);
+  //   const data = await MY_SERVICE.upload(formData);
+  //   await this.setState({ user: this.state.user, uploaded: !this.state.uploaded })
+  //   console.log(this.state.uploaded)
+  // }
 
   // ---------Sumbmit inventory
 
@@ -163,7 +177,7 @@ class MyProvider extends Component {
 
   handleRegisterTransaction = async (transaction) => {
     const { inventory } = this.state
-    const { data } = await MY_SERVICE.registerTransaction(transaction);
+    await MY_SERVICE.registerTransaction(transaction);
     const {data: product} = await MY_SERVICE.updateProduct(transaction.itemId, {quantity: transaction.quantity});
     const newInventory = inventory.map(p => {
       if (p._id === product._id) p = Object.assign({}, product)
@@ -212,6 +226,7 @@ class MyProvider extends Component {
           handleRegisterTransaction:this.handleRegisterTransaction,
           handleCommerceSignup:this.handleCommerceSignup,
           handleGetTransaction:this.handleGetTransaction,
+          handleLoc:this.handleLoc,
           state: this.state
         }}
       >

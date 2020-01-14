@@ -18,17 +18,21 @@ class DashboardMetrics extends Component {
 
   render() {
     return (
-      <div  id="mainContainer" style={{display:'flex', alignItems:'top'}}>
+      <div id="mainContainer" style={{ display: 'flex', alignItems: 'top' }}>
         <div id="sidebar">
           {this.state.on && <Sidebar items={items} />}
         </div>
         <div>
-         <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
-                  {/* static navbar - top */}
-                  <Navbar/>
-                  {(this.props.match.url === "/profile" ?  <Profile />
-                  : this.props.match.url === "/metricas" ? <Dashboard /> 
-                  : this.props.match.url === "/ventas" ? <Sells/> : <InventoryPage />  )}
+          <Navbar {...this.props}/>
+          <div>
+            <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
+          </div>
+          <div>
+            {/* static navbar - top */}
+            {(this.props.match.url === "/profile" ? <Profile />
+              : this.props.match.url === "/metricas" ? <Dashboard />
+                : this.props.match.url === "/ventas" ? <Sells /> : <InventoryPage />)}
+          </div>
         </div>
       </div>
     );

@@ -6,6 +6,12 @@ const commerceSchema = new Schema(
         category:String,
         businessType:String,
         numEmployees:String,
+        place: {
+            type: {
+                default: 'Point'
+            },
+            coordinates: [ Number ]
+        },     
         author: {
             type: Schema.Types.ObjectId,
             ref: 'User'
@@ -21,5 +27,9 @@ const commerceSchema = new Schema(
         versionKey: false
     }
 )
+
+commerceSchema.index({
+    place:"2dsphere"
+})
 
 module.exports = model('Commerce', commerceSchema);

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InventoryStyles = styled.form`
+export const InventoryStyles = styled.div`
   display:flex;
   justify-content:space-evenly;
   width: 100vw;

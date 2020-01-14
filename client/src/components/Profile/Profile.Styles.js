@@ -27,4 +27,9 @@ export const ProfileStyle = styled.form`
     padding:100px 0;
     width:100%;
   }
+  @media (max-width: 768px) {
+        align-items:center;
+        justify-content:center;
+        flex-direction: column;
+    }
 `;

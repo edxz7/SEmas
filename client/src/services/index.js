@@ -1,51 +1,51 @@
 import axios from "axios";
+// let baseURL = "https://crecemass.herokuapp.com";
 let baseURL;
-
-process.env.NODE_ENV === "production"
+baseURL = process.env.ENV === "production"
   ? (baseURL = "https://crecemass.herokuapp.com")
   : (baseURL = "http://localhost:3000");
 
-// const axios = axios.create({ withCredentials: true, baseURL: "/"});
+const service = axios.create({ withCredentials: true, baseURL });
 
 const MY_SERVICE = {
   test: async () => {
-    return await axios.get("/");
+    return await service.get("/");
   },
-  signup: async formm => {
-    return await axios.post("/signup", formm);
+  signup: async form => {
+    return await service.post("/signup", form);
   },
   login: async user => {
-    return await axios.post("/login", user);
+    return await service.post("/login", user);
   },
   logout: async () => {
-    return await axios.post("/logout");
+    return await service.post("/logout");
   },
   getUser: async () => {
-    return await axios.get("/loggedin");
+    return await service.get("/loggedin");
   },
   edit: async () => {
-    return await axios.post("/edit");
+    return await service.post("/edit");
   },
   upload: async (image) => {
-    return await axios.post("/upload", image);
+    return await service.post("/upload", image);
   },
   uploadProduct: async (products) => {
-    return await axios.post("/product/create", {products});
+    return await service.post("/product/create", {products});
   },
   getProducts: async () => {
-    return await axios.get("/product/get");
+    return await service.get("/product/get");
   },
   updateProduct: async (id, product) => {
-    return await axios.post(`/product/edit/${id}`, product);
+    return await service.post(`/product/edit/${id}`, product);
   },
   deleteProducts: async (id) => {
-    return await axios.post(`/product/delete/${id}`);
+    return await service.post(`/product/delete/${id}`);
   },
   registerTransaction: async (transaction) => {
-    return await axios.post("/transaction/create",transaction);
+    return await service.post("/transaction/create",transaction);
   },
   getTransactions: async (commerce) => {
-    return await axios.post("/transaction/get",commerce);
+    return await service.post("/transaction/get",commerce);
   }
 };
 

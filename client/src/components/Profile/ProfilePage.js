@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { ProfileStyle } from "./Profile.Styles";
 import { MyContext } from "../../context";
-import FormInput from "../FormInput/FormInput"
-
 
 class Profile extends Component {
   state = {
@@ -38,7 +36,7 @@ class Profile extends Component {
     return (
       <MyContext.Consumer>
         {context => (
-          <ProfileStyle id="dashboard" class="profile-container" style={{ color: "white", display: "flex" }}>
+          <ProfileStyle id="dashboard" className="profile-container" style={{ color: "white", display: "flex" }}>
             <div id="profile-info">
               <div id="user-info">
               <h3>Información del usuario</h3>
@@ -49,20 +47,18 @@ class Profile extends Component {
                 <p>{context.state.user.email}</p>
               </div>
               <br />
-
             </div>
-
-                <br />
-                <div id="commerce-info">
-                  <h3>Información del comercio</h3>
-                  <h5>Nombre del comercio</h5>
-                  <p>{context.state.commerce.name}</p>
-                  <h5>Categoria:</h5>
-                  <p>{context.state.commerce.category}</p>
-                  <h5>Numero de empleados:</h5>
-                  <p>{context.state.commerce.numEmployees}</p>
-                  <h5>Dirección:</h5>
-                  <p>{context.state.commerce.address}</p>
+              <br />
+            <div id="commerce-info">
+              <h3>Información del comercio</h3>
+              <h5>Nombre del comercio</h5>
+              <p>{context.state.commerce.name}</p>
+              <h5>Categoria:</h5>
+              <p>{context.state.commerce.category}</p>
+              <h5>Numero de empleados:</h5>
+              <p>{context.state.commerce.numEmployees}</p>
+              <h5>Dirección:</h5>
+              <p>{context.state.commerce.address}</p>
             </div>
           </ProfileStyle>
         )}

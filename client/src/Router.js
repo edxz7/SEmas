@@ -1,25 +1,23 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./pages/homepage/Home";
-import SignUp from "./pages/signup/SignUp";
-import LogIn from "./pages/login/LogIn";
+import {LogIn} from "./pages/login/LogIn";
 import DashboardPage from "./pages/dashboard/DashboardPage"
 import NotFound from "./pages/404/NotFound.js";
-import Navbar from "./components/Navbar/Navbar";
-import MasterForm from "./pages/SignUpTest/SignUp"
+import MasterForm from "./pages/SignUp/SignUp";
+import {ProtectedRoute} from './pages/ProtectedRoutes';
 
 const Router = () => (
   <BrowserRouter>
-  <Navbar></Navbar>
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={LogIn} />
       <Route exact path="/signup" component={MasterForm} />
-      <Route exact path="/profile" component={DashboardPage} />
-      <Route exact path="/metricas" component={DashboardPage} />
-      <Route exact path="/ventas" component={DashboardPage} />
-      <Route exact path="/inventario" component={DashboardPage} />
-      <Route exact path="/test" component={SignUp} />
+      <ProtectedRoute exact path="/profile" component={DashboardPage} />
+      <ProtectedRoute exact path="/metricas" component={DashboardPage} />
+      <ProtectedRoute exact path="/ventas" component={DashboardPage} />
+      <ProtectedRoute exact path="/inventario" component={DashboardPage} />
+      <Route path='*' component={NotFound}/>
     </Switch>
   </BrowserRouter>
 );

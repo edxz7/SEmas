@@ -1,14 +1,11 @@
 import { Container } from "./Dashboard-Styled-Components";
 import Navbar from "../Navbar/Navbar";
 import KPICard from "../KPICard/KPICard";
-import ChartTable from "../ChartTable/ChartTable";
+// import ChartTable from "../ChartTable/ChartTable";
 import React, { Component} from 'react';
 import { MyContext } from "../../context";
 import LineChart from "../SellsDayLineChart/SellsDayLineChart";
 import BarChart from "../SellsWeeklyBarChart/SellsWeeklyBarChart";
-
-
-
 
 
 class Dashboard extends Component  {
@@ -236,7 +233,6 @@ class Dashboard extends Component  {
               <Container className="card is-card-dark chart-card">
                 <Container className="chart-container large full-height">
                 <BarChart data = {this.state.sellsPerWeek}/>
-
                 </Container>
               </Container>
             </Container>
