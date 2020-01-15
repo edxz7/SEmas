@@ -1,6 +1,6 @@
-# crece +
+# SE+
 
-Crece + es una plataforma cuyo objetivo es brindar insights a pymes registrando sus ventas y ayudandolas a crecer mediante decisiones basadas en datos.  
+SE+ is a platform whose goal is bring insights to mexican "PYMES" registerin their sell and using this data to train ML algorithms and in this way hemping them to growth through decisions based on data.  
 
 --------------
 
