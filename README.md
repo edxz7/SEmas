@@ -2,6 +2,8 @@
 
 SE+ is a platform whose goal is bring insights to mexican "PYMES" registerin their sell and using this data to train ML algorithms and in this way hemping them to growth through decisions based on data.  
 
+https://priceless-brown-eb0e85.netlify.com/
+
 --------------
 
 User for login
