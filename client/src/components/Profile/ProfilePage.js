@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ProfileStyle } from "./Profile.Styles";
-import { MyContext } from "../../context";
+import { MyContext } from "../../contexts/context";
 
 class Profile extends Component {
   state = {
@@ -52,13 +52,13 @@ class Profile extends Component {
             <div id="commerce-info">
               <h3>Información del comercio</h3>
               <h5>Nombre del comercio</h5>
-              <p>{context.state.commerce.name}</p>
+              {context.state.commerce.name ? <p> {context.state.commerce.name } </p> :  <p> Sin nombre </p>}
               <h5>Categoria:</h5>
               <p>{context.state.commerce.category}</p>
               <h5>Numero de empleados:</h5>
               <p>{context.state.commerce.numEmployees}</p>
               <h5>Dirección:</h5>
-              <p>{context.state.commerce.address}</p>
+              <p>{context.state.address}</p>
             </div>
           </ProfileStyle>
         )}

@@ -1,9 +1,8 @@
-import { Container } from "./Dashboard-Styled-Components";
-import Navbar from "../Navbar/Navbar";
+import { Container } from "./DashboardStyles";
 import KPICard from "../KPICard/KPICard";
 // import ChartTable from "../ChartTable/ChartTable";
 import React, { Component} from 'react';
-import { MyContext } from "../../context";
+import { MyContext } from "../../contexts/context";
 import LineChart from "../SellsDayLineChart/SellsDayLineChart";
 import BarChart from "../SellsWeeklyBarChart/SellsWeeklyBarChart";
 
@@ -173,9 +172,6 @@ class Dashboard extends Component  {
     return (
 
       <Container id="dashboard">
-
-        {/* static navbar - top */}
-          <Navbar/>
         {/* content area start */}
         <Container className="container-fluid pr-5 pl-5 pt-5 pb-5">
           {/* row 1 - revenue */}

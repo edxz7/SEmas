@@ -1,5 +1,5 @@
 import React, { Component, createContext } from "react";
-import MY_SERVICE from "./services/index";
+import MY_SERVICE from "../services/index";
 import Swal from "sweetalert2";
 
 export const MyContext = createContext();
@@ -8,6 +8,7 @@ class MyProvider extends Component {
   state = {
     on: false,
     loggedUser: false,
+    address:'',
     formSignup: {
       username: "",
       userLastName: "",
@@ -49,7 +50,7 @@ class MyProvider extends Component {
           console.log(data)
           this.setState({ loggedUser: true, user: data.user });
           this.setState({ commerce: data.commerce});
-          Swal.fire(`Bienvenido de vuelta ${data.user.name} `, "", "exito");
+          // Swal.fire(`Bienvenido de vuelta ${data.user.name} `, "", "exito");
         })
         .catch(err => console.log(err));
     }
@@ -70,9 +71,10 @@ class MyProvider extends Component {
     console.log(this.state.formSignup)
   };
 
-  handleLoc = (coordinates) => {
+  handleLoc = (coordinates, address) => {
     this.setState(prevState => ({
       ...prevState,
+      address:address,
       formSignup:{
         ...prevState.formSignup,
         place:{
@@ -80,12 +82,10 @@ class MyProvider extends Component {
         }
       }
     }));
-    console.log(this.state.formSignup)
   };
 
 
-  handleSignup = async (e, cb)=> {
-    e.preventDefault();
+  handleSignup = async (cb)=> {
     MY_SERVICE.signup(this.state.formSignup)
       .then(({ data }) => {
         console.log(data)
@@ -98,14 +98,40 @@ class MyProvider extends Component {
     // Swal.fire(`Welcome ${data.user.name}`, "User created", "success");
   };
 
-  handleLogin = (e, cb) => {
-    e.preventDefault();
-    const msg = MY_SERVICE.login(this.state.loginForm)
+  update = (prevState, payload) => {
+    this.setState({
+        ...prevState,
+        formSignup:{
+            ...prevState.formSignup,
+            ...payload
+        },
+        loginForm: {
+          ...prevState.loginForm,
+          ...payload
+        }
+    })
+  }
+
+  updateSignup = (prevState, payload) => {
+    this.setState({
+        ...prevState,
+        formSignup:{
+            ...prevState.formSignup,
+            ...payload
+        }
+    })
+    console.log(this.state)
+}
+
+  handleLogin = (cb) => {
+    // const msg = 
+    console.log(this.state.loginForm)
+    MY_SERVICE.login(this.state.loginForm)
       .then(({ data }) => {
+        console.log(data)
         this.setState({ loggedUser: true, user: data.user })
         this.setState({ commerce: data.commerce })
-        cb()
-        console.log(data)
+        cb();
       }).catch(error => {
         this.setState({errors:error.response})
         })
@@ -206,6 +232,8 @@ class MyProvider extends Component {
     return (
       <MyContext.Provider
         value={{
+          updateAction:this.update,
+          updateSignupAction:this.updateSignup,
           loggedUser: this.state.loggedUser,
           formSignup: this.state.formSignup,
           loginForm: this.state.loginForm,

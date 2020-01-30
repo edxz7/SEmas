@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { MyContext } from "../../context";
+import { MyContext } from "../../contexts/context";
 
 import {
   CheckoutItemContainer,

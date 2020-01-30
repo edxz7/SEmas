@@ -1,9 +1,9 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import React, { Component } from "react";
-import { MyContext } from "../context";
+import { MyContext } from "../contexts/context";
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer } from "deck.gl";
+import { GeoJsonLayer } from "deck.gl";
 import Geocoder from "react-map-gl-geocoder";
 
 const MAPBOX_TOKEN =
@@ -114,11 +114,11 @@ class MapComponent extends Component {
       address: event.result.place_name,
       position: event.result.geometry.coordinates
     });
-    this.context.handleLoc(event.result.geometry.coordinates, "formSignup");
+    this.context.handleLoc(event.result.geometry.coordinates, event.result.place_name, "formSignup");
   };
 
   render() {
-    const { viewport, searchResultLayer } = this.state;
+    const { viewport } = this.state;
     //this two objects are for setting the styles for the marker
     const { size = 30 } = this.props;
     const pinStyle = {

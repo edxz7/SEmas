@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { InventoryStyles } from "./InventoryPage.Styles";
-import { MyContext } from "../../context";
+import { MyContext } from "../../contexts/context";
 import FormInput from "../FormInput/FormInput"
 
 

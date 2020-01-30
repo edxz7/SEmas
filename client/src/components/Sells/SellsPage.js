@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MyContext } from "../../context";
+import { MyContext } from "../../contexts/context";
 import InventoryItem from "../Inventory/InventoryItem";
 
 import {

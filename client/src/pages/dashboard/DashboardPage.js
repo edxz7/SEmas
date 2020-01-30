@@ -4,7 +4,6 @@ import Profile from "../../components/Profile/ProfilePage";
 import Sells from "../../components/Sells/SellsPage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import items from "../../components/Sidebar/Sidebar.Router"
-import Navbar from "../../components/Navbar/Navbar";
 import MenuIcon from '@material-ui/icons/Menu';
 import InventoryPage from "../../components/InventoryPage/InventoryPage";
 class DashboardMetrics extends Component {
@@ -23,7 +22,6 @@ class DashboardMetrics extends Component {
           {this.state.on && <Sidebar items={items} />}
         </div>
         <div>
-          <Navbar {...this.props}/>
           <div>
             <div onClick={this.toggle} className="btn" id="menu-toggle"><MenuIcon /></div>
           </div>

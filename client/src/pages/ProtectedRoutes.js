@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import {MyContext} from '../context'
+import {MyContext} from '../contexts/context'
 
 export const ProtectedRoute = ({ component: Component, ...rest}) => {
     return (

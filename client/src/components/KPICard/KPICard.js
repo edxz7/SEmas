@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from "../Dashboard/Dashboard-Styled-Components";
+import { Container } from "../Dashboard/DashboardStyles";
 
 function KPICard(props) {
     return (
