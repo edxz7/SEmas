@@ -21,12 +21,12 @@ let options = {
         IncorrectPasswordError: 'Password o email incorrectos',
         IncorrectUsernameError: 'Password o email incorrectos',
         MissingUsernameError: 'No username was given',
-        UserExistsError: 'A user with the given username is already registered'
+        UserExistsError: 'Un usurario con el email proporcionado ya ha sido registrado, por favor trata con otro email'
     }
 };
 
 userSchema.plugin(PLM, {
     usernameField: "email"
-  });
+  }, options);
 module.exports = model('User', userSchema);
 

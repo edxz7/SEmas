@@ -5,12 +5,8 @@ const Commerce = require('../models/Commerce');
 // POST  	/auth/signup	username, userLastName, email, password   User created
 exports.signup =  (req, res) => {
     const { username, userLastName, email, password, name, address, category, numEmployees  } = req.body;
-     User.register( { username, userLastName, email }, password, (err) => {
-        if (err) {
-          return res.status(200).json({error: "El email que intentas registrar ya esta en uso. Trata con otro email."});
-        }
-    })
-        .then((user) => {  
+    User.register( { username, userLastName, email }, password).then((user) => {  
+            console.log(user)
              Commerce.create( { name, address, category, numEmployees, author: user._id})
             .then((commerce) => { res.status(200).json({user, commerce})
             .catch((err) => res.status(500).json({ err })); });
